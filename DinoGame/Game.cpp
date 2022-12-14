@@ -22,11 +22,13 @@ Game::~Game()
     delete this->window;
 }
 
+
 // Accessors
 const bool Game::running() const
 {
     return this -> window -> isOpen();
 }
+
 
 // Private functions
 void Game::initVariables()
@@ -119,6 +121,7 @@ void Game::initObjects()
     when_i_was_a_boy_song.setBuffer(when_i_was_a_boy_buffer);
 }
 
+
 // Functions
 void Game::pollEvents()
 {
@@ -142,7 +145,7 @@ void Game::update()
 {
     this -> pollEvents();
     // get mouse loc on screen
-    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
+//    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
 }
 void Game::render()
 {

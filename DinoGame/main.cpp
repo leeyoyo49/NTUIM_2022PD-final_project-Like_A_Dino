@@ -1,6 +1,3 @@
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 #include "Game.hpp"
 
 int main(int, char const**)
