@@ -8,7 +8,6 @@
 
 #include "Game.hpp"
 
-
 // Constructors Destructors
 Game::Game()
 {
@@ -16,7 +15,6 @@ Game::Game()
     this -> initWindow();
     this -> initObjects();
 }
-
 Game::~Game()
 {
     delete this->window;
@@ -111,7 +109,7 @@ void Game::initObjects()
         return EXIT_FAILURE;
     }
     this -> dottedline.setTexture(this -> dottedline_texture);
-    this -> dottedline.setPosition(200, 1000);
+    this -> dottedline.setPosition(200, 900);
     
     // set music
     if(!this -> when_i_was_a_boy_buffer.loadFromFile("/Users/yl/DinoGame/DinoGame/resources/When-I-Was-A-Boy.wav"))
@@ -159,7 +157,8 @@ void Game::render()
     this -> window -> draw(pausebutton);
     this -> window -> draw(dottedline);
 
-//    this -> window -> draw(dinoneck);
+    this -> dinoneck.setPosition(220, 700);
+    this -> window -> draw(dinoneck);
 //    this -> window -> draw(dinobody);
 //    this -> window -> draw(dinohead);
 
