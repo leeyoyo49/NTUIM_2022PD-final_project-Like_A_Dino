@@ -51,6 +51,26 @@ void MainPage::initObjects()
     {
         return EXIT_FAILURE;
     }
+    if(!this->info_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/Information.png"))
+    {
+        return EXIT_FAILURE;
+    }
+    if(!this->startbutton_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/StartBrown.png"))
+    {
+        return EXIT_FAILURE;
+    }
+    if(!this->scoreboard_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/scoreboard.png"))
+    {
+        return EXIT_FAILURE;
+    }
+    if(!this->skin_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/skin.png"))
+    {
+        return EXIT_FAILURE;
+    }
+    if(!this->music_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/Music.png"))
+    {
+        return EXIT_FAILURE;
+    }
     // set background color
     this->background_color = sf::Color(255, 204, 153, 255);
     this->like_a_dino.setString("Like A Dino!");
@@ -60,12 +80,22 @@ void MainPage::initObjects()
     this->MousePosWindow = sf::Mouse::getPosition(*this -> window);
     
     // set texture
-    this->dino.setTexture(this->dino_texture);
-    this->dino.setPosition(450, 500);
     this->like_a_dino.setPosition(200, 200);
     this->like_a_dino.setFont(font);
     this->like_a_dino.setFillColor(sf::Color::Black);
     this->like_a_dino.setCharacterSize(107);
+    this->info.setTexture(this->info_texture);
+    this->info.setPosition(50, 40);
+    this->scoreboard.setTexture(this->scoreboard_texture);
+    this->scoreboard.setPosition(60, 400);
+    this->dino.setTexture(this->dino_texture);
+    this->dino.setPosition(540, 450);
+    this->startbutton.setTexture(this->startbutton_texture);
+    this->startbutton.setPosition(300, 1140);
+    this->skin.setTexture(this->skin_texture);
+    this->skin.setPosition(50, 1340);
+    this->music.setTexture(this->music_texture);
+    this->music.setPosition(820, 1340);
 }
 
 
@@ -102,6 +132,11 @@ void MainPage::render()
     this->window->clear(background_color);
     // draw game objects
     this->window->draw(dino);
+    this->window->draw(info);
+    this->window->draw(scoreboard);
+    this->window->draw(startbutton);
+    this->window->draw(skin);
+    this->window->draw(music);
     this->window->draw(like_a_dino);
     this->window->display();
 }
