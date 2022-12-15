@@ -39,7 +39,7 @@ private:
     int scorenum;
     sf::Text score;
     int lifenum;
-    sf::Text life;
+    sf::Text lifenum_text;
     int speednum;
     sf::Text speed;
     int temponum;
@@ -58,6 +58,8 @@ private:
     sf::Sprite dinobody;
     sf::Texture dottedline_texture;
     sf::Sprite dottedline;
+    sf::Texture life_texture;
+    sf::Sprite life;
     
     std::vector<sf::Sprite> Dinoneck_vector;
     std::vector<int> song_sheet;
