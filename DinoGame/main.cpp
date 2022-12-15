@@ -1,20 +1,43 @@
 #include "Game.hpp"
+//#include "SkinPage.hpp"
 
 int main(int, char const**)
 {
-    // Init Game engine
+    // Init Game engine 接著為1234
+//    MainPage mainpage;
     Game game;
-
+//    SkinPage skinpage;
+//    MusicPage musicpage;
+    int current_state = 2;
+    bool game_still_running = true;
+    
     // Start the game loop
-    while (game.running())
+    while (game_still_running)
     {
-        // update
-        game.update();
         
-        // render
-        game.render();
-        
+        switch (current_state) {
+//            case 1:
+//                mainpage.update();
+//                mainpage.render();
+//                game_still_running = mainpage.running();
+//                break;
+            case 2:
+                game.update();
+                game.render();
+                game_still_running = game.running();
+                break;
+            case 3:
+//                skinpage.update();
+//                skinpage.render();
+//                game_still_running = skinpage.running();
+            case 4:
+//                musicpage.update();
+//                musicpage.render();
+//                game_still_running = musicpage.running();
+                
+            default:
+                break;
+        }
     }
-
     return EXIT_SUCCESS;
 }

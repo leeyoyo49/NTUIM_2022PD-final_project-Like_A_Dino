@@ -9,8 +9,11 @@
 #ifndef Game_hpp
 #define Game_hpp
 
+#include <filesystem>
 #include <string>
 #include <iostream>
+#include <vector>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -45,6 +48,7 @@ private:
     sf::Sprite pausebutton;
     sf::Texture dinohead_texture;
     sf::Sprite dinohead;
+    sf::Vector2f dinoheadpos;
     sf::Texture dinoneck_texture;
     sf::Sprite dinoneck;
     sf::Texture dinobody_texture;
@@ -52,8 +56,13 @@ private:
     sf::Texture dottedline_texture;
     sf::Sprite dottedline;
     
-    sf::SoundBuffer when_i_was_a_boy_buffer;
-    sf::Sound when_i_was_a_boy_song;
+    std::vector<sf::Sprite> Dinoneck_vector;
+    std::vector<int> song_sheet;
+    
+    sf::SoundBuffer song_buffer;
+    sf::Sound song;
+    
+    sf::Vector2i MousePosWindow;
     
     // Private functions
     void initVariables();
@@ -70,7 +79,12 @@ public:
     // Accessors
     const bool running() const;
     
+    // Setter
+    void change_song(std::string song_name);
+    void change_skin(std::string skin_name);
+    
     // Functions
+    void updateMousePositions();
     void pollEvents();
     void update();
     void render();
