@@ -110,9 +110,10 @@ void Game::initObjects()
     this -> gamestart.setFont(font);
     this -> gamestart.setCharacterSize(46);
     this -> gamestart.setPosition(0, 750);
+    this -> neckspeed = (100.0/60.0)*(this -> temponum * this -> speednum);
     
     // set mouseposition
-    this -> MousePosWindow = sf::Mouse::getPosition(*this->window);
+    this -> MousePosWindow = sf::Mouse::getPosition(*this -> window);
     
     // set texture
     if (!this -> pausebutton_texture.loadFromFile("/Users/yl/DinoGame/DinoGame/resources/Images/Stop.png"))
@@ -157,7 +158,23 @@ void Game::initObjects()
     this -> Dinoneck_vector.clear();
     
     // load music sheet
+    this -> song_pos = 0;
+    std::ifstream file_in("/Users/yl/DinoGame/DinoGame/Resources/SongSheet/When-I-Was-A-Boy.txt");
+    if(!file_in) {
+        return EXIT_FAILURE;
+    }
+    std::string line;
+    std::getline(file_in, line);
+    while(!line.empty())
+    {
+        song_sheet.push_back(int(line[0]-48));
+        line.erase(0,1);
+    }
     
+    // play song & set song start time
+    this -> song_start_time = clock();
+    this -> curr_song_time = 0;
+    this -> last_frame_time = clock();
 }
 
 
@@ -181,15 +198,21 @@ void Game::pollEvents()
     }
 }
 
+
 void Game::updateMousePositions()
 {
     this -> MousePosWindow = sf::Mouse::getPosition(*this->window);
 }
-
-void Game::update()
+void Game::update_time()
 {
-    this -> pollEvents();
-    this -> updateMousePositions();
+    clock_t currtime = clock();
+    this -> time_since_last_update = (double(currtime) - double(last_frame_time))/CLOCKS_PER_SEC;
+    this -> curr_song_time = (double(currtime) - double(this -> song_start_time))/CLOCKS_PER_SEC;
+    this -> last_frame_time = clock();
+}
+
+void Game::update_head()
+{
     // head follow cursor
     if(this->MousePosWindow.x < 200)
     {
@@ -203,10 +226,80 @@ void Game::update()
     {
         dinoheadpos.x = MousePosWindow.x;
     }
-    dinohead.setPosition(dinoheadpos);
+    this -> dinohead.setPosition(dinoheadpos);
     
+}
+// for adding and deleting necks
+void Game::update_neck()
+{
+    // add new neck
+    int added_note = this -> song_sheet[this -> song_pos];
+    switch (added_note)
+    {
+        case 0:
+            this -> song_pos ++;
+            break;
+        case 1:
+            this -> dinoneck.setPosition(220, -100);
+            this -> Dinoneck_vector.push_back(this -> dinoneck);
+            this -> song_pos ++;
+            break;
+        case 2:
+            this -> dinoneck.setPosition(460, -100);
+            this -> Dinoneck_vector.push_back(this -> dinoneck);
+            this -> song_pos ++;
+            break;
+        case 3:
+            this -> dinoneck.setPosition(700, -100);
+            this -> Dinoneck_vector.push_back(this -> dinoneck);
+            this -> song_pos ++;
+            break;
+        default:
+            break;
+    }
+}
+
+// for updating neck movment
+void Game::move_neck()
+{
+    
+    // neck fall & del if hit dotted line
+    for(auto &neck: this -> Dinoneck_vector)
+    {
+        std::cout << Dinoneck_vector.size() << std::endl;
+        double temponum = this -> temponum;
+        double move_dis = (((100*temponum*this->speednum)/60)*(this->time_since_last_update));
+//        std::cout << (((100)*(temponum)*(this->speednum))/60);
+//        std::cout << " ";
+//        std::cout << (this->time_since_last_update) << std::endl;
+        neck.move(0, move_dis);
+    }
+    // reach dotted line delete neck
+    if(!Dinoneck_vector.empty())
+    {
+        if(Dinoneck_vector[0].getPosition().y >= 1100)
+        {
+            Dinoneck_vector.erase(Dinoneck_vector.begin());
+        }
+    }
+}
+
+void Game::update()
+{
+    this -> pollEvents();
+    this -> updateMousePositions();
+    this -> update_head();
+    this -> update_time();
+    
+    double time_segemnt = 1/temponum;
+    if(this -> curr_song_time >= time_segemnt*(this->song_pos))
+    {
+        this -> update_neck();
+    }
+    
+    this->move_neck();
     // get mouse loc on screen
-    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
+//    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
 }
 void Game::render()
 {
@@ -221,7 +314,11 @@ void Game::render()
     this -> window -> draw(dottedline);
 
     this -> dinoneck.setPosition(220, 700);
-    this -> window -> draw(dinoneck);
+    for(auto neck: this -> Dinoneck_vector)
+    {
+        this -> window -> draw(neck);
+    }
+//    this -> window -> draw(dinoneck);
 //    this -> window -> draw(dinobody);
     this -> window -> draw(dinohead);
 

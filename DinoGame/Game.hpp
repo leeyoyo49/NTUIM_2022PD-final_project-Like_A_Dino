@@ -9,10 +9,12 @@
 #ifndef Game_hpp
 #define Game_hpp
 
-#include <filesystem>
+#include <ctime>
+#include <fstream>
 #include <string>
 #include <iostream>
 #include <vector>
+#include <queue>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -42,6 +44,7 @@ private:
     sf::Text speed;
     int temponum;
     sf::Text tempo;
+    double neckspeed;
     
     sf::Text gamestart;
     sf::Texture pausebutton_texture;
@@ -58,6 +61,11 @@ private:
     
     std::vector<sf::Sprite> Dinoneck_vector;
     std::vector<int> song_sheet;
+    int song_pos;
+    double curr_song_time;
+    clock_t song_start_time;
+    double last_frame_time;
+    double time_since_last_update;
     
     sf::SoundBuffer song_buffer;
     sf::Sound song;
@@ -86,6 +94,10 @@ public:
     // Functions
     void updateMousePositions();
     void pollEvents();
+    void update_time();
+    void update_head();
+    void update_neck();
+    void move_neck();
     void update();
     void render();
 };
