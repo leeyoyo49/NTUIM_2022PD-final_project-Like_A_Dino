@@ -25,10 +25,28 @@ private:
     sf::RenderWindow* window;
     sf::VideoMode videoMode;
     sf::Event event;
+    
     //Game objects
     sf::Text like_a_dino;
+    
+    sf::Texture info_texture;
+    sf::Sprite info;
+    
+    sf::Texture scoreboard_texture;
+    sf::Sprite scoreboard;
+    
     sf::Texture dino_texture;
     sf::Sprite dino;
+    
+    sf::Texture startbutton_texture;
+    sf::Sprite startbutton;
+    
+    sf::Texture skin_texture;
+    sf::Sprite skin;
+    
+    sf::Texture music_texture;
+    sf::Sprite music;
+    
     sf::Font font;
     sf::Color background_color;
     sf::Vector2i MousePosWindow;
