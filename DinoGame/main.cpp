@@ -1,7 +1,8 @@
-#include "Game.hpp"
 //#include "SkinPage.hpp"
 #include "MainPage.hpp"
 #include "Game.hpp"
+
+
 int main(int, char const**)
 {
     // Init Game engine 接著為1234

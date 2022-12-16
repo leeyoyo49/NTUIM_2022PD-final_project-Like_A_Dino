@@ -80,19 +80,8 @@ void Game::initWindow()
 void Game::initObjects()
 {
     // load font
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    if (!font.loadFromFile("./resources/Fonts/ComicGeckoPro.otf")) {
-=======
+
     if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
->>>>>>> Stashed changes
-=======
-    if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
->>>>>>> Stashed changes
-=======
-    if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
->>>>>>> Stashed changes
         return EXIT_FAILURE;
     }
     
