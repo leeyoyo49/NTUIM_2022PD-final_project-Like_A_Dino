@@ -14,7 +14,6 @@
 // 計分 更新db
 
 #include "Game.hpp"
-#include "ResourcePath.hpp"
 
 // Constructors Destructors
 Game::Game(sf::RenderWindow* window)
@@ -65,8 +64,8 @@ void Game::change_skin(std::string skin_name)
 // Private functions
 void Game::initObjects()
 {
+    this -> ss.precision(1);
     // load font
-
     if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
         return EXIT_FAILURE;
     }
@@ -86,26 +85,34 @@ void Game::initObjects()
     this -> lifenum_text.setFillColor(sf::Color::Black);
     this -> lifenum_text.setFont(font);
     this -> lifenum_text.setCharacterSize(60);
-    this -> lifenum_text.setPosition(880, 45);
+    this -> lifenum_text.setPosition(870, 45);
     this -> speednum = 1;
-    this -> speed.setString("Speed X"+std::to_string(speednum));
+    this -> ss << fixed << speednum;
+    string temp = ss.str();
+    this -> ss.clear();
+    this -> speed.setString("Speed X"+temp);
     this -> speed.setFillColor(sf::Color::Black);
     this -> speed.setFont(font);
     this -> speed.setCharacterSize(46);
-    this -> speed.setPosition(760, 1350);
+    this -> speed.setPosition(740, 1350);
     this -> temponum = 120;
     this -> tempo.setString("Tempo:"+std::to_string(temponum));
     this -> tempo.setFillColor(sf::Color::Black);
     this -> tempo.setFont(font);
     this -> tempo.setCharacterSize(46);
-    this -> tempo.setPosition(760, 1400);
+    this -> tempo.setPosition(740, 1400);
     this -> gamestart.setString("Game Start!");
     this -> gamestart.setFillColor(sf::Color::Black);
     this -> gamestart.setFont(font);
     this -> gamestart.setCharacterSize(60);
     this -> gamestart.setPosition(0, 750);
+    this -> speedup.setFont(font);
+    this -> speedup.setString("Speed Up !");
+    this -> speedup.setCharacterSize(50);
+    this -> speedup.setPosition(300, 1000);
+    this -> speedupnum = 0;
     // 1 sec 200 pixel
-    this -> neckspeed = 48*(100.0/60.0)*(this -> temponum * this -> speednum);
+    this -> neckspeed = 36*(100.0/60.0)*(this -> temponum * this -> speednum);
     
     // set mouseposition
     this -> MousePosWindow = sf::Mouse::getPosition(*this -> window);
@@ -124,7 +131,7 @@ void Game::initObjects()
     }
     this -> dinohead.setTexture(this -> dinohead_texture);
     this -> dinoheadpos.x = 200;
-    this -> dinoheadpos.y = 1147.5;
+    this -> dinoheadpos.y = 1100.5;
     this -> dinohead.setPosition(dinoheadpos);
     
     if (!this -> dinoneck_texture.loadFromFile(resourcePath()+"Resources/Images/dinoYellowNeck.png"))
@@ -151,7 +158,13 @@ void Game::initObjects()
         return EXIT_FAILURE;
     }
     this -> life.setTexture(life_texture);
-    this -> life.setPosition(787, 48);
+    this -> life.setPosition(777, 48);
+    
+    if(!this -> red_dino_neck_texture.loadFromFile(resourcePath()+"Resources/Images/dinoRedNeck.png"))
+    {
+        return EXIT_FAILURE;
+    }
+    this -> red_dino_neck.setTexture(red_dino_neck_texture);
     
     // set music
     if(!this -> song_buffer.loadFromFile(resourcePath()+"Resources/Songs/vivaldi_autumn.wav"))
@@ -176,13 +189,6 @@ void Game::initObjects()
         song_sheet.push_back(int(line[0]-48));
         line.erase(0,1);
     }
-    
-    // play song & set song start time
-    this -> song_start_time = clock();
-    this -> curr_song_time = 0;
-    this -> last_frame_time = clock();
-    
-    this -> song.play();
 }
 
 
@@ -222,17 +228,17 @@ void Game::update_time()
 void Game::update_head()
 {
     // head follow cursor
-    if(this->MousePosWindow.x < 200)
+    if(this->MousePosWindow.x < 300)
     {
         this -> dinoheadpos.x = 200;
     }
-    else if(this->MousePosWindow.x > 800-125)
+    else if(this->MousePosWindow.x > 800-100)
     {
-        this -> dinoheadpos.x = 800-125;
+        this -> dinoheadpos.x = 800-200;
     }
     else
     {
-        dinoheadpos.x = MousePosWindow.x;
+        dinoheadpos.x = MousePosWindow.x - 100;
     }
     this -> dinohead.setPosition(dinoheadpos);
     
@@ -289,14 +295,88 @@ void Game::move_neck()
 //        std::cout << (this->time_since_last_update) << std::endl;
         neck.move(0, move_dis);
     }
+    // touch dino head delete neck
     // reach dotted line delete neck
     if(!Dinoneck_vector.empty())
     {
-        if(Dinoneck_vector[0].getPosition().y >= 1100)
+        int lowestneckx = Dinoneck_vector[0].getPosition().x, lowestnecky = Dinoneck_vector[0].getPosition().y;
+        if(lowestnecky >= 1100)
         {
+            lifenum --;
+            lifenum_text.setString("X"+to_string(lifenum));
+            red_dino_neck.setPosition(lowestneckx, 1110);
             Dinoneck_vector.erase(Dinoneck_vector.begin());
+            this -> minus_life_animation();
+        }
+        else if((lowestnecky+100 >= dinohead.getPosition().y) && (lowestnecky < 1100))
+        {
+            if((lowestneckx >= dinohead.getPosition().x) && (lowestneckx <= (dinohead.getPosition().x + 200)))
+            {
+                scorenum += 10;
+                score.setString("Score:"+to_string(scorenum));
+                Dinoneck_vector.erase(Dinoneck_vector.begin());
+                if((scorenum % 200 == 0) && (scorenum != 0))
+                {
+                    speednum += 0.2;
+                    ss.str("");
+                    this -> ss << fixed << speednum;
+                    string temp = ss.str();
+                    speed.setString("Speed X" + temp);
+                    this -> speedupnum = 300;
+                    this -> neckspeed = 36*(100.0/60.0)*(this -> temponum * this -> speednum);
+
+                }
+            }
+            else if(((lowestneckx + 80) <= (dinohead.getPosition().x + 200)) && ((lowestneckx + 80) >= dinohead.getPosition().x))
+            {
+                scorenum += 10;
+                score.setString("Score"+to_string(scorenum));
+                Dinoneck_vector.erase(Dinoneck_vector.begin());
+                if((scorenum % 200 == 0) && (scorenum != 0))
+                {
+                    speednum += 0.2;
+                    ss.str("");
+                    this -> ss << fixed << speednum;
+                    string temp = ss.str();
+                    speed.setString("Speed X" + temp);
+                    ss.clear();
+                    this -> speedupnum = 300;
+                    this -> neckspeed = 36*(100.0/60.0)*(this -> temponum * this -> speednum);
+
+                }
+            }
         }
     }
+}
+void Game::minus_life_animation()
+{
+    song.pause();
+    this -> Dinoneck_vector.clear();
+    sleep(0.5);
+    sf::Text how_many_life_left("You have "+to_string(lifenum)+" life left", font, 70);
+    how_many_life_left.setPosition(200, 700);
+    int i = 300;
+    while(i-- && this -> running())
+    {
+        this -> window -> clear(background_color);
+        this -> window -> draw(score);
+        this -> window -> draw(lifenum_text);
+        this -> window -> draw(life);
+        this -> window -> draw(speed);
+        this -> window -> draw(tempo);
+        this -> window -> draw(pausebutton);
+        this -> window -> draw(dottedline);
+        this -> window -> draw(red_dino_neck);
+        this -> window -> draw(how_many_life_left);
+        this -> window -> draw(life);
+        this -> window -> draw(dinohead);
+        this -> window -> display();
+    }
+    for(int j = 0; j < 6; j++)
+    {
+        this -> song_sheet[this -> song_pos - 1 + j] = 0;
+    }
+    song.play();
 }
 
 void Game::update()
@@ -321,7 +401,11 @@ void Game::render()
     this -> window -> draw(tempo);
     this -> window -> draw(pausebutton);
     this -> window -> draw(dottedline);
-
+    if(this -> speedupnum != 0)
+    {
+        this -> window -> draw(speedup);
+        this -> speedupnum--;
+    }
     for(auto neck: this -> Dinoneck_vector)
     {
         this -> window -> draw(neck);
@@ -329,4 +413,40 @@ void Game::render()
     this -> window -> draw(dinohead);
 
     this -> window -> display();
+}
+
+void Game::gameStartpage()
+{
+    sleep(0.3);
+    sf::Text gamestarttext("Let's Start !", this->font, 70);
+    gamestarttext.setFillColor(sf::Color::Black);
+    gamestarttext.setPosition(1001, 500);
+    while((gamestarttext.getPosition().x > -470) && this -> running())
+    {
+        this -> window -> clear(background_color);
+        this -> window -> draw(gamestarttext);
+        gamestarttext.move(-5, 0);
+        this -> window -> display();
+    }
+}
+
+int Game::gamerun(int &current_state)
+{
+    this -> gameStartpage();
+    // play song & set song start time
+    this -> song_start_time = clock();
+    this -> curr_song_time = 0;
+    this -> last_frame_time = clock();
+    this -> song.play();
+    sleep(0.1);
+    while(!this -> game_end && this -> running())
+    {
+        this -> update();
+        this -> render();
+    }
+}
+
+void Game::gameover()
+{
+    
 }

@@ -15,12 +15,15 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <unistd.h>
+#include <sstream>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include "ResourcePath.hpp"
+using namespace std;
 
 #endif /* Game_hpp */
 
@@ -28,22 +31,27 @@ class Game
 {
 private:
     // Variables
+    ostringstream ss;
     // window
     sf::Color background_color;
     sf::VideoMode videoMode;
     sf::Event ev;
     
     // Game objects
+    bool game_end = false;
+    int draw_red = 0;
     sf::Font font;
     
     int scorenum;
     sf::Text score;
     int lifenum;
     sf::Text lifenum_text;
-    int speednum;
+    double speednum;
     sf::Text speed;
     int temponum;
     sf::Text tempo;
+    int speedupnum;
+    sf::Text speedup;
     double neckspeed;
     
     sf::Text gamestart;
@@ -60,6 +68,8 @@ private:
     sf::Sprite dottedline;
     sf::Texture life_texture;
     sf::Sprite life;
+    sf::Texture red_dino_neck_texture;
+    sf::Sprite red_dino_neck;
     
     std::vector<sf::Sprite> Dinoneck_vector;
     std::vector<int> song_sheet;
@@ -101,4 +111,8 @@ public:
     void move_neck();
     void update();
     void render();
+    void gameStartpage();
+    void minus_life_animation();
+    int gamerun(int& current_state);
+    void gameover();
 };

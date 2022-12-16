@@ -1,4 +1,4 @@
-#include "SkinPage.hpp"
+//#include "SkinPage.hpp"
 #include "MainPage.hpp"
 #include "Game.hpp"
 
@@ -16,7 +16,7 @@ int main(int, char const**)
     window -> setFramerateLimit(120);
     Game game(window);
     MainPage mainpage(window);
-    SkinPage skinpage(window);
+//    SkinPage skinpage(window);
     
     // Start the game loop
     while (game_still_running)
@@ -29,14 +29,13 @@ int main(int, char const**)
                 game_still_running = mainpage.running();
                 break;
             case 2:
-                game.update();
-                game.render();
+                game.gamerun(current_state);
                 game_still_running = game.running();
                 break;
             case 3:
-                skinpage.update();
-                skinpage.render();
-                game_still_running = skinpage.running();
+//                skinpage.update();
+//                skinpage.render();
+//                game_still_running = skinpage.running();
             case 4:
 //                musicpage.update();
 //                musicpage.render();
