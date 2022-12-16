@@ -1,17 +1,16 @@
-#ifndef SkinPage_hpp
-#define SkinPage_hpp
+#ifndef MusicPage_hpp
+#define MusicPage_hpp
 
 #include <string>
 #include <iostream>
 #include<fstream>
-#include<vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 
-const int NUM = 7; // skin num
-class SkinPage
+const int MUSIC_NUM = 1;
+class MusicPage
 {
 private:
     // Variables
@@ -23,11 +22,12 @@ private:
 
     // Game objects
     sf::Font font;
-    std::string names[NUM];
-    std::string skinURL[NUM];
-    sf::Sprite dinos[NUM];
-    sf::Texture dinos_texture[NUM];
-    sf::Text skinname;
+    std::string names[MUSIC_NUM];
+    std::string musicURL[MUSIC_NUM];
+    //std::string coverURL[MUSIC_NUM];
+    //sf::Sprite cover[SKIN_NUM];
+    //sf::Texture cover_texture[SKIN_NUM];
+    sf::Text musicname;
 
     int index;
     sf::Texture leftbutton_texture;
@@ -38,13 +38,11 @@ private:
     sf::IntRect rightbuttonRect;
     sf::Text returnbutton;
     sf::IntRect returnbuttonRect;
-    //sf::Sprite returnbutton;
 
-    sf::SoundBuffer when_i_was_a_boy_buffer;
-    sf::Sound when_i_was_a_boy_song;
+    sf::Music music;
 
     // Private functions
-    void iniNames(std::string *names, std::string *skinURL);
+    void iniNames(std::string* names, std::string* skinURL);
     void initVariables();
     void initWindow();
     void initObjects();
@@ -53,8 +51,8 @@ private:
 
 public:
     // Constructors, Destructors
-    SkinPage();
-    ~SkinPage();
+    MusicPage();
+    ~MusicPage();
 
     // Accessors
     sf::Clock time;
@@ -66,8 +64,9 @@ public:
     // Functions
     void pollEvents();
     void update();
-    void updateSkinname();
-    void updateDinos();
+    void updateMusicname();
+    void updateMusic();
+    //void updateCover();
     void render();
 };
 

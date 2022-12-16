@@ -1,33 +1,33 @@
-#include "SkinPage.hpp"
+#include "MusicPage.hpp"
 
 // Constructors Destructors
-SkinPage::SkinPage()
+MusicPage::MusicPage()
 {
-    this->iniNames(names, skinURL);
+    this->iniNames(names, musicURL);
     this->initVariables();
     this->initWindow();
     this->initObjects();
 }
 
-SkinPage::~SkinPage()
+MusicPage::~MusicPage()
 {
     delete this->window;
 }
 
 // Accessors
-const bool SkinPage::running() const
+const bool MusicPage::running() const
 {
     return this->window->isOpen();
 }
 
 // Private functions
-void SkinPage::initVariables()
+void MusicPage::initVariables()
 {
     this->window = nullptr;
     index = 0;
 }
 
-void SkinPage::initWindow()
+void MusicPage::initWindow()
 {
     this->videoMode.height = 1080;
     this->videoMode.width = 1920;
@@ -35,7 +35,7 @@ void SkinPage::initWindow()
     this->window->setFramerateLimit(60);
 }
 
-void SkinPage::initObjects()
+void MusicPage::initObjects()
 {
     // load font
     if (!font.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/ComicGeckoPro.otf")) {
@@ -46,11 +46,11 @@ void SkinPage::initObjects()
     this->background_color = sf::Color(255, 204, 153);
 
     // set text
-    this->skinname.setString(names[index]);
-    this->skinname.setFillColor(sf::Color::Black);
-    this->skinname.setFont(font);
-    this->skinname.setCharacterSize(64);
-    this->skinname.setPosition(830, 100);
+    this->musicname.setString(names[index]);
+    this->musicname.setFillColor(sf::Color::Black);
+    this->musicname.setFont(font);
+    this->musicname.setCharacterSize(64);
+    this->musicname.setPosition(730, 100);
 
     // set texture
     if (!this->leftbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/left.png"))
@@ -78,33 +78,31 @@ void SkinPage::initObjects()
         returnbutton.getGlobalBounds().width, returnbutton.getGlobalBounds().height);
     this->returnbuttonRect = returnTmp;
 
-    if (!this->dinos_texture[index].loadFromFile(skinURL[index]))
+    /*if (!this->cover_texture[index].loadFromFile(coverURL[index]))
         throw("ERROR::EXIT_FAILURE");
-    this->dinos[index].setTexture(this->dinos_texture[index]);
-    this->dinos[index].setPosition(780, 225);
+    this->cover[index].setTexture(this->cover_texture[index]);
+    this->cover[index].setPosition(780, 225);*/
 
     // set music
-    /*if (!this->when_i_was_a_boy_buffer.loadFromFile("/Users/yl/DinoGame/DinoGame/resources/When-I-Was-A-Boy.wav"))
-    {
-        return EXIT_FAILURE;
-    }
-    when_i_was_a_boy_song.setBuffer(when_i_was_a_boy_buffer);*/
+    if (!this->music.openFromFile(musicURL[0]))
+        throw("ERROR::EXIT_FAILURE");
+    music.play();
 }
 
-void SkinPage::iniNames(std::string* names, std::string* skinURL)
+void MusicPage::iniNames(std::string* names, std::string* skinURL)
 {
-    std::ifstream ifs("resources/skin.txt");
+    std::ifstream ifs("resources/music.txt");
     if (ifs.is_open()) {
-        for(int i = 0; i < NUM; i++){
+        for (int i = 0; i < MUSIC_NUM; i++) {
             std::getline(ifs, names[i]);
-            std::getline(ifs, skinURL[i]);
+            std::getline(ifs, musicURL[i]);
         }
     }
     ifs.close();
 }
 
 // Functions
-void SkinPage::pollEvents()
+void MusicPage::pollEvents()
 {
     while (this->window->pollEvent(this->ev))
     {
@@ -123,7 +121,7 @@ void SkinPage::pollEvents()
     }
 }
 
-void SkinPage::update()
+void MusicPage::update()
 {
     this->pollEvents();
     if (ifLeftPressed(sf::Mouse::getPosition(*this->window))) {
@@ -131,35 +129,38 @@ void SkinPage::update()
         if (cur.asSeconds() > 0.15) {
             index--;
             if (index < 0)
-                index = NUM - 1;
+                index = MUSIC_NUM - 1;
+            updateMusic();
             time.restart();
         }
     }
-    else if(ifRightPressed(sf::Mouse::getPosition(*this->window))){
+    else if (ifRightPressed(sf::Mouse::getPosition(*this->window))) {
         sf::Time cur = time.getElapsedTime();
         if (cur.asSeconds() > 0.15) {
             index++;
-            if (index == NUM)
+            if (index == MUSIC_NUM)
                 index = 0;
+            updateMusic();
             time.restart();
         }
     }
     else if (ifReturnPressed(sf::Mouse::getPosition(*this->window))) {
+        // change music for every states
         // jump back to main state
         this->window->close();
     }
 
-    this->updateSkinname();
-    this->updateDinos();
+    this->updateMusicname();
+    //this->updateCover();
 }
 
-void SkinPage::render()
+void MusicPage::render()
 {
     this->window->clear(background_color);
 
     // draw game objects
-    this->window->draw(skinname);
-    this->window->draw(dinos[index]);
+    this->window->draw(musicname);
+    //this->window->draw(cover[index]);
     this->window->draw(leftbutton);
     this->window->draw(rightbutton);
     this->window->draw(returnbutton);
@@ -167,19 +168,26 @@ void SkinPage::render()
     this->window->display();
 }
 
-void SkinPage::updateSkinname()
+void MusicPage::updateMusicname()
 {
-    this->skinname.setString(names[index]);
+    this->musicname.setString(names[index]);
 }
 
-void SkinPage::updateDinos()
+void MusicPage::updateMusic()
 {
-    this->dinos_texture[index].loadFromFile(skinURL[index]);
-    this->dinos[index].setTexture(this->dinos_texture[index]);
-    this->dinos[index].setPosition(780, 225);
+    music.stop();
+    music.openFromFile(musicURL[index]);
+    music.play();
 }
 
-const bool SkinPage::ifLeftPressed(sf::Vector2i mousePos) const
+/*void MusicPage::updateCover()
+{
+    this->cover_texture[index].loadFromFile(coverURL[index]);
+    this->cover[index].setTexture(this->cover_texture[index]);
+    this->cover[index].setPosition(780, 225);
+}*/
+
+const bool MusicPage::ifLeftPressed(sf::Vector2i mousePos) const
 {
     if (leftbuttonRect.contains(sf::Mouse::getPosition(*this->window))) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -188,7 +196,7 @@ const bool SkinPage::ifLeftPressed(sf::Vector2i mousePos) const
     return false;
 }
 
-const bool SkinPage::ifRightPressed(sf::Vector2i mousePos) const
+const bool MusicPage::ifRightPressed(sf::Vector2i mousePos) const
 {
     if (rightbuttonRect.contains(sf::Mouse::getPosition(*this->window))) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -197,7 +205,7 @@ const bool SkinPage::ifRightPressed(sf::Vector2i mousePos) const
     return false;
 }
 
-const bool SkinPage::ifReturnPressed(sf::Vector2i mousePos) const
+const bool MusicPage::ifReturnPressed(sf::Vector2i mousePos) const
 {
     if (returnbuttonRect.contains(sf::Mouse::getPosition(*this->window))) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
