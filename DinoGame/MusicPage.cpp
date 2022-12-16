@@ -40,7 +40,8 @@ void MusicPage::initWindow()
 void MusicPage::initObjects()
 {
     // load font
-    if (!font.loadFromFile("resourcePath()"+"Resources/Fonts/ComicGeckoPro.otf") {
+    if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf"))
+    {
         throw("ERROR::COULD NOT FIND LOAD FONT");
     }
 

@@ -51,7 +51,7 @@ private:
 
 public:
     // Constructors, Destructors
-    MusicPage();
+    MusicPage(sf::RenderWindow* window);
     ~MusicPage();
 
     // Accessors
