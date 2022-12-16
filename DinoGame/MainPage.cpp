@@ -74,6 +74,7 @@ void MainPage::initObjects()
     // set background color
     this->background_color = sf::Color(255, 204, 153, 255);
     this->like_a_dino.setString("Like A Dino!");
+    this->song_name.setString("Theme Ku");
     // set text
     
     // set mouseposition
@@ -84,6 +85,10 @@ void MainPage::initObjects()
     this->like_a_dino.setFont(font);
     this->like_a_dino.setFillColor(sf::Color::Black);
     this->like_a_dino.setCharacterSize(107);
+    this->song_name.setPosition(130, 560);
+    this->song_name.setFont(font);
+    this->song_name.setFillColor(sf::Color::Black);
+    this->song_name.setCharacterSize(50);
     this->info.setTexture(this->info_texture);
     this->info.setPosition(50, 40);
     this->scoreboard.setTexture(this->scoreboard_texture);
@@ -120,12 +125,23 @@ void MainPage::pollEvents()
 }
 
 
-void MainPage::update()
+void MainPage::update(int& current_state)
 {
     this -> pollEvents();
-
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 312 && sf::Mouse::getPosition(*this -> window).x < 718 && sf::Mouse::getPosition(*this -> window).y > 1150 && sf::Mouse::getPosition(*this -> window).y < 1340)
+    {
+        current_state = 2;
+    }
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 62 && sf::Mouse::getPosition(*this -> window).x < 168 && sf::Mouse::getPosition(*this -> window).y > 1346 && sf::Mouse::getPosition(*this -> window).y < 1448)
+    {
+        current_state = 3;
+    }
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 830 && sf::Mouse::getPosition(*this -> window).x < 932 && sf::Mouse::getPosition(*this -> window).y > 1350 && sf::Mouse::getPosition(*this -> window).y < 1446)
+    {
+        current_state = 4;
+    }
     // get mouse loc on screen
-    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
+    //std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
 }
 void MainPage::render()
 {
@@ -138,5 +154,6 @@ void MainPage::render()
     this->window->draw(skin);
     this->window->draw(music);
     this->window->draw(like_a_dino);
+    this->window->draw(song_name);
     this->window->display();
 }

@@ -1,12 +1,12 @@
 //#include "Game.hpp"
 //#include "SkinPage.hpp"
 #include "MainPage.hpp"
-
+#include "Game.hpp"
 int main(int, char const**)
 {
     // Init Game engine 接著為1234
     MainPage mainpage;
-//    Game game;
+    Game game;
 //    SkinPage skinpage;
 //    MusicPage musicpage;
     int current_state = 1;
@@ -18,15 +18,15 @@ int main(int, char const**)
         
         switch (current_state) {
             case 1:
-                mainpage.update();
+                mainpage.update(current_state);
                 mainpage.render();
                 game_still_running = mainpage.running();
                 break;
             case 2:
-//                game.update();
-//                game.render();
-//                game_still_running = game.running();
-//                break;
+                game.update();
+                game.render();
+                game_still_running = game.running();
+                break;
             case 3:
 //                skinpage.update();
 //                skinpage.render();

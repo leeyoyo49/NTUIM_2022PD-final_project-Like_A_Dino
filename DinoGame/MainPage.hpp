@@ -28,7 +28,7 @@ private:
     
     //Game objects
     sf::Text like_a_dino;
-    
+    sf::Text song_name;
     sf::Texture info_texture;
     sf::Sprite info;
     
@@ -64,7 +64,7 @@ public:
     
     //Functions
     void pollEvents();
-    void update();
+    void update(int& current_state);
     void render();
 };
 

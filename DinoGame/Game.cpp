@@ -13,7 +13,7 @@
 Game::Game()
 {
     this -> initVariables();
-    this -> initWindow();
+    //this -> initWindow();
     this -> initObjects();
 }
 Game::~Game()
@@ -31,7 +31,7 @@ const bool Game::running() const
 // Setter
 void Game::change_song(std::string song_name)
 {
-    if(!this -> song_buffer.loadFromFile("/Users/yl/DinoGame/DinoGame/resources/Images/"+song_name+".wav"))
+    if(!this -> song_buffer.loadFromFile("./resources/Images/"+song_name+".wav"))
     {
         return EXIT_FAILURE;
     }
@@ -73,7 +73,7 @@ void Game::initWindow()
 void Game::initObjects()
 {
     // load font
-    if (!font.loadFromFile("/Users/yl/DinoGame/DinoGame/resources/Fonts/ComicGeckoPro.otf")) {
+    if (!font.loadFromFile("./resources/Fonts/ComicGeckoPro.otf")) {
         return EXIT_FAILURE;
     }
     
