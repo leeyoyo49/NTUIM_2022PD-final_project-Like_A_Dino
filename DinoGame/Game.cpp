@@ -17,17 +17,15 @@
 #include "ResourcePath.hpp"
 
 // Constructors Destructors
-Game::Game()
+Game::Game(sf::RenderWindow* window)
 {
-    this -> initVariables();
-    //this -> initWindow();
+    this -> window = window;
     this -> initObjects();
 }
-Game::~Game()
-{
-    delete this->window;
-}
-
+//Game::~Game()
+//{
+//    delete this->window;
+//}
 
 // Accessors
 const bool Game::running() const
@@ -38,7 +36,7 @@ const bool Game::running() const
 // Setter
 void Game::change_song(std::string song_name)
 {
-    if(!this -> song_buffer.loadFromFile("./resources/Images/"+song_name+".wav"))
+    if(!this -> song_buffer.loadFromFile(resourcePath()+"Resources/Songs/"+song_name+".wav"))
     {
         return EXIT_FAILURE;
     }
@@ -65,18 +63,6 @@ void Game::change_skin(std::string skin_name)
 }
 
 // Private functions
-void Game::initVariables()
-{
-    this -> window = nullptr;
-
-}
-void Game::initWindow()
-{
-    this -> videoMode.height = 1500;
-    this -> videoMode.width = 1000;
-    this -> window = new sf::RenderWindow(this->videoMode, "Like A Dino!");
-    this -> window-> setFramerateLimit(120);
-}
 void Game::initObjects()
 {
     // load font

@@ -10,17 +10,11 @@
 
 
 // Constructors Destructors
-MainPage::MainPage()
+MainPage::MainPage(sf::RenderWindow* window)
 {
-    this -> initVariables();
-    this -> initWindow();
+    this -> window = window;
     this -> initObjects();
 }
-MainPage::~MainPage()
-{
-    delete this->window;
-}
-
 
 // Accessors
 const bool MainPage::running() const
@@ -29,45 +23,34 @@ const bool MainPage::running() const
 }
 
 // Private functions
-void MainPage::initVariables()
-{
-
-}
-void MainPage::initWindow()
-{
-    this -> videoMode.height = 1500;
-    this -> videoMode.width = 1000;
-    this -> window = new sf::RenderWindow(this->videoMode, "Like A Dino!");
-    this -> window->setFramerateLimit(60);
-}
 void MainPage::initObjects()
 {
     // load font
-    if (!font.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Fonts/ComicGeckoPro.otf")) {
+    if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
         return EXIT_FAILURE;
     }
     // load photos
-    if(!this->dino_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/DinoYellow.png"))
+    if(!this->dino_texture.loadFromFile(resourcePath()+"Resources/Images/DinoYellow.png"))
     {
         return EXIT_FAILURE;
     }
-    if(!this->info_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/Information.png"))
+    if(!this->info_texture.loadFromFile(resourcePath()+"Resources/Images/Information.png"))
     {
         return EXIT_FAILURE;
     }
-    if(!this->startbutton_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/StartBrown.png"))
+    if(!this->startbutton_texture.loadFromFile(resourcePath()+"Resources/Images/StartBrown.png"))
     {
         return EXIT_FAILURE;
     }
-    if(!this->scoreboard_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/scoreboard.png"))
+    if(!this->scoreboard_texture.loadFromFile(resourcePath()+"Resources/Images/scoreboard.png"))
     {
         return EXIT_FAILURE;
     }
-    if(!this->skin_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/skin.png"))
+    if(!this->skin_texture.loadFromFile(resourcePath()+"Resources/Images/skin.png"))
     {
         return EXIT_FAILURE;
     }
-    if(!this->music_texture.loadFromFile("/Users/howard/NTUIM_2022PD-final_project-Like_A_Dino/DinoGame/Resources/Images/Music.png"))
+    if(!this->music_texture.loadFromFile(resourcePath()+"Resources/Images/Music.png"))
     {
         return EXIT_FAILURE;
     }

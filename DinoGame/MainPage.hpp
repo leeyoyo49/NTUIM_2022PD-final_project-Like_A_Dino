@@ -17,12 +17,13 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <stdio.h>
+#include "ResourcePath.hpp"
 
 class MainPage
 {
 private:
     //Variables / Windows
-    sf::RenderWindow* window;
     sf::VideoMode videoMode;
     sf::Event event;
     
@@ -51,13 +52,12 @@ private:
     sf::Color background_color;
     sf::Vector2i MousePosWindow;
     // Private functions
-    void initVariables();
-    void initWindow();
     void initObjects();
 public:
     //Constructors / Destructors
-    MainPage();
-    virtual ~MainPage();
+    sf::RenderWindow* window;
+    MainPage(sf::RenderWindow* window);
+//    virtual ~MainPage();
     
     //Accessors
     const bool running() const;
@@ -68,7 +68,6 @@ public:
     void render();
 };
 
-#include <stdio.h>
 
 #endif /* game_hpp */
 

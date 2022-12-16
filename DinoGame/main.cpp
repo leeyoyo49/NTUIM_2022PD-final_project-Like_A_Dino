@@ -1,4 +1,4 @@
-//#include "SkinPage.hpp"
+#include "SkinPage.hpp"
 #include "MainPage.hpp"
 #include "Game.hpp"
 
@@ -6,12 +6,17 @@
 int main(int, char const**)
 {
     // Init Game engine 接著為1234
-    MainPage mainpage;
-    Game game;
+//    MainPage mainpage;
 //    SkinPage skinpage;
 //    MusicPage musicpage;
-    int current_state = 2;
+    int current_state = 1;
     bool game_still_running = true;
+    
+    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1000,1500), "Like A Dino!");
+    window -> setFramerateLimit(120);
+    Game game(window);
+    MainPage mainpage(window);
+    SkinPage skinpage(window);
     
     // Start the game loop
     while (game_still_running)
@@ -29,9 +34,9 @@ int main(int, char const**)
                 game_still_running = game.running();
                 break;
             case 3:
-//                skinpage.update();
-//                skinpage.render();
-//                game_still_running = skinpage.running();
+                skinpage.update();
+                skinpage.render();
+                game_still_running = skinpage.running();
             case 4:
 //                musicpage.update();
 //                musicpage.render();
@@ -41,5 +46,6 @@ int main(int, char const**)
                 break;
         }
     }
+    delete window;
     return EXIT_SUCCESS;
 }

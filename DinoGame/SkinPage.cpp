@@ -1,18 +1,18 @@
 #include "SkinPage.hpp"
 
 // Constructors Destructors
-SkinPage::SkinPage()
+SkinPage::SkinPage(sf::RenderWindow* window)
 {
+    this->window = window;
     this->iniNames(names, skinURL);
     this->initVariables();
-    this->initWindow();
     this->initObjects();
 }
 
-SkinPage::~SkinPage()
-{
-    delete this->window;
-}
+//SkinPage::~SkinPage()
+//{
+//    delete this->window;
+//}
 
 // Accessors
 const bool SkinPage::running() const
@@ -38,7 +38,7 @@ void SkinPage::initWindow()
 void SkinPage::initObjects()
 {
     // load font
-    if (!font.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/ComicGeckoPro.otf")) {
+    if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
         throw("ERROR::COULD NOT FIND LOAD FONT");
     }
 
@@ -53,7 +53,7 @@ void SkinPage::initObjects()
     this->skinname.setPosition(830, 100);
 
     // set texture
-    if (!this->leftbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/left.png"))
+    if (!this->leftbutton_texture.loadFromFile(resourcePath()+"Resources/Images/left.png"))
         throw("ERROR::EXIT_FAILURE");
     this->leftbutton.setTexture(this->leftbutton_texture);
     this->leftbutton.setPosition(150, 530);
@@ -61,7 +61,7 @@ void SkinPage::initObjects()
         leftbutton.getGlobalBounds().width, leftbutton.getGlobalBounds().height);
     this->leftbuttonRect = leftTmp;
 
-    if (!this->rightbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/right.png"))
+    if (!this->rightbutton_texture.loadFromFile(resourcePath()+"Resources/Images/right.png"))
         throw("ERROR::EXIT_FAILURE");
     this->rightbutton.setTexture(this->rightbutton_texture);
     this->rightbutton.setPosition(1770, 530);
@@ -93,7 +93,7 @@ void SkinPage::initObjects()
 
 void SkinPage::iniNames(std::string* names, std::string* skinURL)
 {
-    std::ifstream ifs("resources/skin.txt");
+    std::ifstream ifs(resourcePath()+"Resources/skin.txt");
     if (ifs.is_open()) {
         for(int i = 0; i < NUM; i++){
             std::getline(ifs, names[i]);

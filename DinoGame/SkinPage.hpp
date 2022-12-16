@@ -1,10 +1,11 @@
 #ifndef SkinPage_hpp
 #define SkinPage_hpp
 
+#include "ResourcePath.hpp"
 #include <string>
 #include <iostream>
-#include<fstream>
-#include<vector>
+#include <fstream>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -53,8 +54,8 @@ private:
 
 public:
     // Constructors, Destructors
-    SkinPage();
-    ~SkinPage();
+    SkinPage(sf::RenderWindow* window);
+//    ~SkinPage();
 
     // Accessors
     sf::Clock time;

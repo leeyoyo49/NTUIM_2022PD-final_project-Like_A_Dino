@@ -20,6 +20,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+#include "ResourcePath.hpp"
 
 #endif /* Game_hpp */
 
@@ -29,7 +30,6 @@ private:
     // Variables
     // window
     sf::Color background_color;
-    sf::RenderWindow* window;
     sf::VideoMode videoMode;
     sf::Event ev;
     
@@ -75,16 +75,15 @@ private:
     sf::Vector2i MousePosWindow;
     
     // Private functions
-    void initVariables();
-    void initWindow();
     void initObjects();
 
     
 
 public:
+    sf::RenderWindow* window;
     // Constructors, Destructors
-    Game();
-    ~Game();
+    Game(sf::RenderWindow* window);
+//    ~Game();
     
     // Accessors
     const bool running() const;
