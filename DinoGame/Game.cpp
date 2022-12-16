@@ -254,9 +254,9 @@ void Game::update_head()
 void Game::update_neck()
 {
     // 一小節4個八分音符 所以除以 8
-    double time_segemnt = 60.0/(temponum*8);
+    double time_segemnt = 60.0/(temponum*4);
     // 0.125 is the delay between the track
-    if(this -> curr_song_time < (time_segemnt*(this->song_pos)-0.25))
+    if(this -> curr_song_time < (time_segemnt*(this->song_pos)))
     {
         return;
     }
