@@ -6,12 +6,11 @@
 //  Copyright © 2022 Dafu. All rights reserved.
 //
 
-// 開始的時候暫停一下
 // 碰到發出音效
-// 碰到頭不見
-// 碰到底部扣命
 // 找簡單的音樂
-// 計分 更新db
+// 最高分更新db
+// 脖子變長
+// game over 畫面
 
 #include "Game.hpp"
 

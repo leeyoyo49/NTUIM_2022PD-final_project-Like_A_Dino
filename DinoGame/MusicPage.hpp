@@ -63,7 +63,7 @@ public:
 
     // Functions
     void pollEvents();
-    void update();
+    void update(int& current_state);
     void updateMusicname();
     void updateMusic();
     //void updateCover();

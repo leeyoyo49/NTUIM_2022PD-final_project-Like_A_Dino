@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		792B7DCE294C5EE2008E3F13 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 792B7DCC294C5EE2008E3F13 /* ResourcePath.mm */; };
+		79519BC3294CD269006F0CD2 /* MusicPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79519BC2294CD269006F0CD2 /* MusicPage.cpp */; };
+		79519BC6294CD4C1006F0CD2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 79519BC5294CD4C1006F0CD2 /* README.md */; };
 		7957C6A5294AA82700F2D324 /* SkinPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7957C6A4294AA82700F2D324 /* SkinPage.cpp */; };
 		7957C6AC294AB74500F2D324 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 7957C6AB294AB74500F2D324 /* Resources */; };
 		79CE6CF92948C95600905E15 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79CE6CF72948C95600905E15 /* Game.cpp */; };
@@ -18,6 +20,9 @@
 /* Begin PBXFileReference section */
 		792B7DCC294C5EE2008E3F13 /* ResourcePath.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		792B7DCD294C5EE2008E3F13 /* ResourcePath.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
+		79519BC2294CD269006F0CD2 /* MusicPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MusicPage.cpp; sourceTree = "<group>"; };
+		79519BC4294CD26D006F0CD2 /* MusicPage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MusicPage.hpp; sourceTree = "<group>"; };
+		79519BC5294CD4C1006F0CD2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7957C6A4294AA82700F2D324 /* SkinPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkinPage.cpp; sourceTree = "<group>"; };
 		7957C6A6294AA82C00F2D324 /* SkinPage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SkinPage.hpp; sourceTree = "<group>"; };
 		7957C6AB294AB74500F2D324 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
@@ -43,6 +48,7 @@
 		79F5C19729486186003BFD08 = {
 			isa = PBXGroup;
 			children = (
+				79519BC5294CD4C1006F0CD2 /* README.md */,
 				79F5C1A329486186003BFD08 /* DinoGame */,
 				79F5C1A229486186003BFD08 /* Products */,
 			);
@@ -59,15 +65,17 @@
 		79F5C1A329486186003BFD08 /* DinoGame */ = {
 			isa = PBXGroup;
 			children = (
+				79F5C1A929486186003BFD08 /* main.cpp */,
 				89B61580294B03AB00D20F2F /* MainPage.cpp */,
 				89B61581294B03AB00D20F2F /* MainPage.hpp */,
-				7957C6A4294AA82700F2D324 /* SkinPage.cpp */,
-				792B7DCD294C5EE2008E3F13 /* ResourcePath.hpp */,
-				792B7DCC294C5EE2008E3F13 /* ResourcePath.mm */,
-				7957C6A6294AA82C00F2D324 /* SkinPage.hpp */,
 				79CE6CF72948C95600905E15 /* Game.cpp */,
 				79CE6CF82948C95600905E15 /* Game.hpp */,
-				79F5C1A929486186003BFD08 /* main.cpp */,
+				7957C6A4294AA82700F2D324 /* SkinPage.cpp */,
+				7957C6A6294AA82C00F2D324 /* SkinPage.hpp */,
+				79519BC2294CD269006F0CD2 /* MusicPage.cpp */,
+				79519BC4294CD26D006F0CD2 /* MusicPage.hpp */,
+				792B7DCC294C5EE2008E3F13 /* ResourcePath.mm */,
+				792B7DCD294C5EE2008E3F13 /* ResourcePath.hpp */,
 				7957C6AB294AB74500F2D324 /* Resources */,
 			);
 			path = DinoGame;
@@ -132,6 +140,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79519BC6294CD4C1006F0CD2 /* README.md in Resources */,
 				7957C6AC294AB74500F2D324 /* Resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,6 +174,7 @@
 			files = (
 				79F5C1AA29486186003BFD08 /* main.cpp in Sources */,
 				7957C6A5294AA82700F2D324 /* SkinPage.cpp in Sources */,
+				79519BC3294CD269006F0CD2 /* MusicPage.cpp in Sources */,
 				792B7DCE294C5EE2008E3F13 /* ResourcePath.mm in Sources */,
 				79CE6CF92948C95600905E15 /* Game.cpp in Sources */,
 				89B61582294B03AB00D20F2F /* MainPage.cpp in Sources */,

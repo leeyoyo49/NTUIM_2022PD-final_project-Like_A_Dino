@@ -11,10 +11,10 @@ SkinPage::SkinPage(sf::RenderWindow *window)
     this->initObjects();
 }
 
-SkinPage::~SkinPage()
-{
-    delete this->window;
-}
+//SkinPage::~SkinPage()
+//{
+//    delete this->window;
+//}
 
 // Accessors
 const bool SkinPage::running() const
@@ -86,10 +86,6 @@ void SkinPage::initObjects()
     this->skinname.setPosition(dinos[0].getPosition().x + dinos[0].getGlobalBounds().width/2
                                - skinname.getGlobalBounds().width/2, 100);
 
-    // set music
-    if (!this->music.openFromFile(musicURL[0]))
-        throw("ERROR::EXIT_FAILURE");
-    music.play();
 }
 
 void SkinPage::iniNames(std::string* names, std::string* skinURL)
