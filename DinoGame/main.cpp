@@ -1,4 +1,4 @@
-//#include "Game.hpp"
+#include "Game.hpp"
 //#include "SkinPage.hpp"
 #include "MainPage.hpp"
 #include "Game.hpp"
@@ -9,7 +9,7 @@ int main(int, char const**)
     Game game;
 //    SkinPage skinpage;
 //    MusicPage musicpage;
-    int current_state = 1;
+    int current_state = 2;
     bool game_still_running = true;
     
     // Start the game loop

@@ -3,6 +3,7 @@
 // Constructors Destructors
 SkinPage::SkinPage()
 {
+    this->iniNames(names, skinURL);
     this->initVariables();
     this->initWindow();
     this->initObjects();
@@ -13,21 +14,19 @@ SkinPage::~SkinPage()
     delete this->window;
 }
 
-
 // Accessors
 const bool SkinPage::running() const
 {
     return this->window->isOpen();
 }
 
-
 // Private functions
 void SkinPage::initVariables()
 {
     this->window = nullptr;
-    this->names[0] = "Estel";
-
+    index = 0;
 }
+
 void SkinPage::initWindow()
 {
     this->videoMode.height = 1080;
@@ -35,6 +34,7 @@ void SkinPage::initWindow()
     this->window = new sf::RenderWindow(this->videoMode, "Like A Dino!");
     this->window->setFramerateLimit(60);
 }
+
 void SkinPage::initObjects()
 {
     // load font
@@ -46,30 +46,42 @@ void SkinPage::initObjects()
     this->background_color = sf::Color(255, 204, 153);
 
     // set text
-    names[0] = "Estel";
-    this->skinname.setString(names[0]);
+    this->skinname.setString(names[index]);
     this->skinname.setFillColor(sf::Color::Black);
     this->skinname.setFont(font);
-    this->skinname.setCharacterSize(46);
-    this->skinname.setPosition(960, 150);
+    this->skinname.setCharacterSize(64);
+    this->skinname.setPosition(830, 100);
 
     // set texture
     if (!this->leftbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/left.png"))
         throw("ERROR::EXIT_FAILURE");
     this->leftbutton.setTexture(this->leftbutton_texture);
     this->leftbutton.setPosition(150, 530);
+    sf::IntRect leftTmp(leftbutton.getPosition().x, leftbutton.getPosition().y,
+        leftbutton.getGlobalBounds().width, leftbutton.getGlobalBounds().height);
+    this->leftbuttonRect = leftTmp;
+
     if (!this->rightbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/right.png"))
         throw("ERROR::EXIT_FAILURE");
     this->rightbutton.setTexture(this->rightbutton_texture);
     this->rightbutton.setPosition(1770, 530);
-    if (!this->returnbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/left.png"))
+    sf::IntRect rightTmp(rightbutton.getPosition().x, rightbutton.getPosition().y,
+        rightbutton.getGlobalBounds().width, rightbutton.getGlobalBounds().height);
+    this->rightbuttonRect = rightTmp;
+
+    this->returnbutton.setString("OK!");
+    this->returnbutton.setFillColor(sf::Color::Black);
+    this->returnbutton.setFont(font);
+    this->returnbutton.setCharacterSize(108);
+    this->returnbutton.setPosition(900, 850);
+    sf::IntRect returnTmp(returnbutton.getPosition().x, returnbutton.getPosition().y,
+        returnbutton.getGlobalBounds().width, returnbutton.getGlobalBounds().height);
+    this->returnbuttonRect = returnTmp;
+
+    if (!this->dinos_texture[index].loadFromFile(skinURL[index]))
         throw("ERROR::EXIT_FAILURE");
-    this->returnbutton.setTexture(this->returnbutton_texture);
-    this->returnbutton.setPosition(50, 50);
-    if (!this->dinos_texture[0].loadFromFile("/Users/User/source/repos/Dino/Dino/resources/Dino.png"))
-        throw("ERROR::EXIT_FAILURE");
-    this->dinos[0].setTexture(this->dinos_texture[0]);
-    this->dinos[0].setPosition(800, 300);
+    this->dinos[index].setTexture(this->dinos_texture[index]);
+    this->dinos[index].setPosition(780, 225);
 
     // set music
     /*if (!this->when_i_was_a_boy_buffer.loadFromFile("/Users/yl/DinoGame/DinoGame/resources/When-I-Was-A-Boy.wav"))
@@ -79,6 +91,17 @@ void SkinPage::initObjects()
     when_i_was_a_boy_song.setBuffer(when_i_was_a_boy_buffer);*/
 }
 
+void SkinPage::iniNames(std::string* names, std::string* skinURL)
+{
+    std::ifstream ifs("resources/skin.txt");
+    if (ifs.is_open()) {
+        for(int i = 0; i < NUM; i++){
+            std::getline(ifs, names[i]);
+            std::getline(ifs, skinURL[i]);
+        }
+    }
+    ifs.close();
+}
 
 // Functions
 void SkinPage::pollEvents()
@@ -99,29 +122,86 @@ void SkinPage::pollEvents()
         }
     }
 }
+
 void SkinPage::update()
 {
     this->pollEvents();
-    // get mouse loc on screen
-//    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
+    if (ifLeftPressed(sf::Mouse::getPosition(*this->window))) {
+        sf::Time cur = time.getElapsedTime();
+        if (cur.asSeconds() > 0.15) {
+            index--;
+            if (index < 0)
+                index = NUM - 1;
+            time.restart();
+        }
+    }
+    else if(ifRightPressed(sf::Mouse::getPosition(*this->window))){
+        sf::Time cur = time.getElapsedTime();
+        if (cur.asSeconds() > 0.15) {
+            index++;
+            if (index == NUM)
+                index = 0;
+            time.restart();
+        }
+    }
+    else if (ifReturnPressed(sf::Mouse::getPosition(*this->window))) {
+        // jump back to main state
+        this->window->close();
+    }
+
+    this->updateSkinname();
+    this->updateDinos();
 }
+
 void SkinPage::render()
 {
     this->window->clear(background_color);
 
     // draw game objects
     this->window->draw(skinname);
-    this->window->draw(dinos[0]);
+    this->window->draw(dinos[index]);
     this->window->draw(leftbutton);
     this->window->draw(rightbutton);
     this->window->draw(returnbutton);
 
-    //    this -> window -> draw(dinoneck);
-    //    this -> window -> draw(dinobody);
-    //    this -> window -> draw(dinohead);
-
-
-
-
     this->window->display();
+}
+
+void SkinPage::updateSkinname()
+{
+    this->skinname.setString(names[index]);
+}
+
+void SkinPage::updateDinos()
+{
+    this->dinos_texture[index].loadFromFile(skinURL[index]);
+    this->dinos[index].setTexture(this->dinos_texture[index]);
+    this->dinos[index].setPosition(780, 225);
+}
+
+const bool SkinPage::ifLeftPressed(sf::Vector2i mousePos) const
+{
+    if (leftbuttonRect.contains(sf::Mouse::getPosition(*this->window))) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            return true;
+    }
+    return false;
+}
+
+const bool SkinPage::ifRightPressed(sf::Vector2i mousePos) const
+{
+    if (rightbuttonRect.contains(sf::Mouse::getPosition(*this->window))) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            return true;
+    }
+    return false;
+}
+
+const bool SkinPage::ifReturnPressed(sf::Vector2i mousePos) const
+{
+    if (returnbuttonRect.contains(sf::Mouse::getPosition(*this->window))) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            return true;
+    }
+    return false;
 }
