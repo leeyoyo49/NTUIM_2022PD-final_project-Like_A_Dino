@@ -7,55 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7994CE30294A04F000DC758C /* StartBrown.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE1C294A04EF00DC758C /* StartBrown.png */; };
-		7994CE31294A04F000DC758C /* StartBrown(1).png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE1D294A04EF00DC758C /* StartBrown(1).png */; };
-		7994CE32294A04F000DC758C /* skin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE1E294A04EF00DC758C /* skin.png */; };
-		7994CE33294A04F000DC758C /* Information(1).png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE1F294A04EF00DC758C /* Information(1).png */; };
-		7994CE34294A04F000DC758C /* Start.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE20294A04EF00DC758C /* Start.png */; };
-		7994CE35294A04F000DC758C /* Information.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE21294A04EF00DC758C /* Information.png */; };
-		7994CE36294A04F000DC758C /* ComicGeckoPro.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE22294A04EF00DC758C /* ComicGeckoPro.otf */; };
-		7994CE37294A04F000DC758C /* Stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE23294A04EF00DC758C /* Stop.png */; };
-		7994CE38294A04F000DC758C /* Dino.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE24294A04EF00DC758C /* Dino.png */; };
-		7994CE39294A04F000DC758C /* DinoBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE25294A04F000DC758C /* DinoBlue.png */; };
-		7994CE3A294A04F000DC758C /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE26294A04F000DC758C /* sansation.ttf */; };
-		7994CE3B294A04F000DC758C /* When-I-Was-A-Boy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE27294A04F000DC758C /* When-I-Was-A-Boy.mp3 */; };
-		7994CE3C294A04F000DC758C /* DuckPink.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE28294A04F000DC758C /* DuckPink.png */; };
-		7994CE3D294A04F000DC758C /* dottedline.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE29294A04F000DC758C /* dottedline.png */; };
-		7994CE3E294A04F000DC758C /* Head.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE2A294A04F000DC758C /* Head.png */; };
-		7994CE3F294A04F000DC758C /* Music.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE2B294A04F000DC758C /* Music.png */; };
-		7994CE40294A04F000DC758C /* DinoYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE2C294A04F000DC758C /* DinoYellow.png */; };
-		7994CE41294A04F000DC758C /* DuckYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE2D294A04F000DC758C /* DuckYellow.png */; };
-		7994CE42294A04F000DC758C /* DinoGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE2E294A04F000DC758C /* DinoGreen.png */; };
-		7994CE43294A04F000DC758C /* DuckWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7994CE2F294A04F000DC758C /* DuckWhite.png */; };
+		7957C6A5294AA82700F2D324 /* SkinPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7957C6A4294AA82700F2D324 /* SkinPage.cpp */; };
+		7957C6AC294AB74500F2D324 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 7957C6AB294AB74500F2D324 /* Resources */; };
 		79CE6CF92948C95600905E15 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79CE6CF72948C95600905E15 /* Game.cpp */; };
 		79F5C1AA29486186003BFD08 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79F5C1A929486186003BFD08 /* main.cpp */; };
+		89B61582294B03AB00D20F2F /* MainPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89B61580294B03AB00D20F2F /* MainPage.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7994CE1C294A04EF00DC758C /* StartBrown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StartBrown.png; path = DinoGame/resources/StartBrown.png; sourceTree = SOURCE_ROOT; };
-		7994CE1D294A04EF00DC758C /* StartBrown(1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "StartBrown(1).png"; path = "DinoGame/resources/StartBrown(1).png"; sourceTree = SOURCE_ROOT; };
-		7994CE1E294A04EF00DC758C /* skin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin.png; path = DinoGame/resources/skin.png; sourceTree = SOURCE_ROOT; };
-		7994CE1F294A04EF00DC758C /* Information(1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Information(1).png"; path = "DinoGame/resources/Information(1).png"; sourceTree = SOURCE_ROOT; };
-		7994CE20294A04EF00DC758C /* Start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Start.png; path = DinoGame/resources/Start.png; sourceTree = SOURCE_ROOT; };
-		7994CE21294A04EF00DC758C /* Information.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Information.png; path = DinoGame/resources/Information.png; sourceTree = SOURCE_ROOT; };
-		7994CE22294A04EF00DC758C /* ComicGeckoPro.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ComicGeckoPro.otf; path = DinoGame/resources/ComicGeckoPro.otf; sourceTree = SOURCE_ROOT; };
-		7994CE23294A04EF00DC758C /* Stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Stop.png; path = DinoGame/resources/Stop.png; sourceTree = SOURCE_ROOT; };
-		7994CE24294A04EF00DC758C /* Dino.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Dino.png; path = DinoGame/resources/Dino.png; sourceTree = SOURCE_ROOT; };
-		7994CE25294A04F000DC758C /* DinoBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DinoBlue.png; path = DinoGame/resources/DinoBlue.png; sourceTree = SOURCE_ROOT; };
-		7994CE26294A04F000DC758C /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = sansation.ttf; path = DinoGame/resources/sansation.ttf; sourceTree = SOURCE_ROOT; };
-		7994CE27294A04F000DC758C /* When-I-Was-A-Boy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "When-I-Was-A-Boy.mp3"; path = "DinoGame/resources/When-I-Was-A-Boy.mp3"; sourceTree = SOURCE_ROOT; };
-		7994CE28294A04F000DC758C /* DuckPink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DuckPink.png; path = DinoGame/resources/DuckPink.png; sourceTree = SOURCE_ROOT; };
-		7994CE29294A04F000DC758C /* dottedline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dottedline.png; path = DinoGame/resources/dottedline.png; sourceTree = SOURCE_ROOT; };
-		7994CE2A294A04F000DC758C /* Head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Head.png; path = DinoGame/resources/Head.png; sourceTree = SOURCE_ROOT; };
-		7994CE2B294A04F000DC758C /* Music.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Music.png; path = DinoGame/resources/Music.png; sourceTree = SOURCE_ROOT; };
-		7994CE2C294A04F000DC758C /* DinoYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DinoYellow.png; path = DinoGame/resources/DinoYellow.png; sourceTree = SOURCE_ROOT; };
-		7994CE2D294A04F000DC758C /* DuckYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DuckYellow.png; path = DinoGame/resources/DuckYellow.png; sourceTree = SOURCE_ROOT; };
-		7994CE2E294A04F000DC758C /* DinoGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DinoGreen.png; path = DinoGame/resources/DinoGreen.png; sourceTree = SOURCE_ROOT; };
-		7994CE2F294A04F000DC758C /* DuckWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DuckWhite.png; path = DinoGame/resources/DuckWhite.png; sourceTree = SOURCE_ROOT; };
+		7957C6A4294AA82700F2D324 /* SkinPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkinPage.cpp; sourceTree = "<group>"; };
+		7957C6A6294AA82C00F2D324 /* SkinPage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SkinPage.hpp; sourceTree = "<group>"; };
+		7957C6AB294AB74500F2D324 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		79CE6CF72948C95600905E15 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		79CE6CF82948C95600905E15 /* Game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		79F5C1A129486186003BFD08 /* DinoGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DinoGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F5C1A929486186003BFD08 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		89B61580294B03AB00D20F2F /* MainPage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MainPage.cpp; sourceTree = "<group>"; };
+		89B61581294B03AB00D20F2F /* MainPage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MainPage.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,39 +56,16 @@
 		79F5C1A329486186003BFD08 /* DinoGame */ = {
 			isa = PBXGroup;
 			children = (
+				89B61580294B03AB00D20F2F /* MainPage.cpp */,
+				89B61581294B03AB00D20F2F /* MainPage.hpp */,
+				7957C6A4294AA82700F2D324 /* SkinPage.cpp */,
+				7957C6A6294AA82C00F2D324 /* SkinPage.hpp */,
 				79CE6CF72948C95600905E15 /* Game.cpp */,
 				79CE6CF82948C95600905E15 /* Game.hpp */,
 				79F5C1A929486186003BFD08 /* main.cpp */,
-				79F5C1AB29486186003BFD08 /* Resources */,
+				7957C6AB294AB74500F2D324 /* Resources */,
 			);
 			path = DinoGame;
-			sourceTree = "<group>";
-		};
-		79F5C1AB29486186003BFD08 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				7994CE22294A04EF00DC758C /* ComicGeckoPro.otf */,
-				7994CE24294A04EF00DC758C /* Dino.png */,
-				7994CE25294A04F000DC758C /* DinoBlue.png */,
-				7994CE2E294A04F000DC758C /* DinoGreen.png */,
-				7994CE2C294A04F000DC758C /* DinoYellow.png */,
-				7994CE29294A04F000DC758C /* dottedline.png */,
-				7994CE28294A04F000DC758C /* DuckPink.png */,
-				7994CE2F294A04F000DC758C /* DuckWhite.png */,
-				7994CE2D294A04F000DC758C /* DuckYellow.png */,
-				7994CE2A294A04F000DC758C /* Head.png */,
-				7994CE21294A04EF00DC758C /* Information.png */,
-				7994CE1F294A04EF00DC758C /* Information(1).png */,
-				7994CE2B294A04F000DC758C /* Music.png */,
-				7994CE26294A04F000DC758C /* sansation.ttf */,
-				7994CE1E294A04EF00DC758C /* skin.png */,
-				7994CE20294A04EF00DC758C /* Start.png */,
-				7994CE1C294A04EF00DC758C /* StartBrown.png */,
-				7994CE1D294A04EF00DC758C /* StartBrown(1).png */,
-				7994CE23294A04EF00DC758C /* Stop.png */,
-				7994CE27294A04F000DC758C /* When-I-Was-A-Boy.mp3 */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,26 +127,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7994CE43294A04F000DC758C /* DuckWhite.png in Resources */,
-				7994CE38294A04F000DC758C /* Dino.png in Resources */,
-				7994CE3D294A04F000DC758C /* dottedline.png in Resources */,
-				7994CE31294A04F000DC758C /* StartBrown(1).png in Resources */,
-				7994CE3A294A04F000DC758C /* sansation.ttf in Resources */,
-				7994CE42294A04F000DC758C /* DinoGreen.png in Resources */,
-				7994CE37294A04F000DC758C /* Stop.png in Resources */,
-				7994CE3C294A04F000DC758C /* DuckPink.png in Resources */,
-				7994CE41294A04F000DC758C /* DuckYellow.png in Resources */,
-				7994CE33294A04F000DC758C /* Information(1).png in Resources */,
-				7994CE35294A04F000DC758C /* Information.png in Resources */,
-				7994CE40294A04F000DC758C /* DinoYellow.png in Resources */,
-				7994CE30294A04F000DC758C /* StartBrown.png in Resources */,
-				7994CE3B294A04F000DC758C /* When-I-Was-A-Boy.mp3 in Resources */,
-				7994CE36294A04F000DC758C /* ComicGeckoPro.otf in Resources */,
-				7994CE39294A04F000DC758C /* DinoBlue.png in Resources */,
-				7994CE3E294A04F000DC758C /* Head.png in Resources */,
-				7994CE3F294A04F000DC758C /* Music.png in Resources */,
-				7994CE32294A04F000DC758C /* skin.png in Resources */,
-				7994CE34294A04F000DC758C /* Start.png in Resources */,
+				7957C6AC294AB74500F2D324 /* Resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +159,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				79F5C1AA29486186003BFD08 /* main.cpp in Sources */,
+				7957C6A5294AA82700F2D324 /* SkinPage.cpp in Sources */,
 				79CE6CF92948C95600905E15 /* Game.cpp in Sources */,
+				89B61582294B03AB00D20F2F /* MainPage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
