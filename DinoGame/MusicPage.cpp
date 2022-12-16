@@ -1,11 +1,13 @@
 #include "MusicPage.hpp"
+#include "ResourcePath.hpp"
 
 // Constructors Destructors
-MusicPage::MusicPage()
+MusicPage::MusicPage(sf::RenderWindow* window)
 {
+    this->window = window;
     this->iniNames(names, musicURL);
     this->initVariables();
-    this->initWindow();
+    //this->initWindow();
     this->initObjects();
 }
 
@@ -38,7 +40,7 @@ void MusicPage::initWindow()
 void MusicPage::initObjects()
 {
     // load font
-    if (!font.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/ComicGeckoPro.otf")) {
+    if (!font.loadFromFile("resourcePath()+"Resources/Fonts/ComicGeckoPro.otf"")) {
         throw("ERROR::COULD NOT FIND LOAD FONT");
     }
 
@@ -53,7 +55,7 @@ void MusicPage::initObjects()
     this->musicname.setPosition(730, 100);
 
     // set texture
-    if (!this->leftbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/left.png"))
+    if (!this->leftbutton_texture.loadFromFile(resourcePath()+"Resources/Images/left.png"))
         throw("ERROR::EXIT_FAILURE");
     this->leftbutton.setTexture(this->leftbutton_texture);
     this->leftbutton.setPosition(150, 530);
@@ -61,7 +63,7 @@ void MusicPage::initObjects()
         leftbutton.getGlobalBounds().width, leftbutton.getGlobalBounds().height);
     this->leftbuttonRect = leftTmp;
 
-    if (!this->rightbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/right.png"))
+    if (!this->rightbutton_texture.loadFromFile(resourcePath()+"Resources/Images/right.png"))
         throw("ERROR::EXIT_FAILURE");
     this->rightbutton.setTexture(this->rightbutton_texture);
     this->rightbutton.setPosition(1770, 530);
@@ -84,18 +86,17 @@ void MusicPage::initObjects()
     this->cover[index].setPosition(780, 225);*/
 
     // set music
-    if (!this->music.openFromFile(musicURL[0]))
+    if (!this->music.openFromFile(resourcePath()+"Resources/Songs/"+names[0]+".wav"))
         throw("ERROR::EXIT_FAILURE");
     music.play();
 }
 
 void MusicPage::iniNames(std::string* names, std::string* skinURL)
 {
-    std::ifstream ifs("resources/music.txt");
+    std::ifstream ifs("Resources/music.txt");
     if (ifs.is_open()) {
         for (int i = 0; i < MUSIC_NUM; i++) {
             std::getline(ifs, names[i]);
-            std::getline(ifs, musicURL[i]);
         }
     }
     ifs.close();
@@ -121,7 +122,7 @@ void MusicPage::pollEvents()
     }
 }
 
-void MusicPage::update()
+void MusicPage::update(int& current_state)
 {
     this->pollEvents();
     if (ifLeftPressed(sf::Mouse::getPosition(*this->window))) {
@@ -146,7 +147,7 @@ void MusicPage::update()
     }
     else if (ifReturnPressed(sf::Mouse::getPosition(*this->window))) {
         // change music for every states
-        // jump back to main state
+        current_state = 1;
         this->window->close();
     }
 
@@ -176,7 +177,7 @@ void MusicPage::updateMusicname()
 void MusicPage::updateMusic()
 {
     music.stop();
-    music.openFromFile(musicURL[index]);
+    music.openFromFile(resourcePath()+"Resources/Songs/"+names[index]+".wav");
     music.play();
 }
 
