@@ -6,6 +6,13 @@
 //  Copyright © 2022 Dafu. All rights reserved.
 //
 
+// 開始的時候暫停一下
+// 碰到發出音效
+// 碰到頭不見
+// 碰到底部扣命
+// 找簡單的音樂
+// 計分 更新db
+
 #include "Game.hpp"
 
 
@@ -111,7 +118,7 @@ void Game::initObjects()
     this -> gamestart.setCharacterSize(60);
     this -> gamestart.setPosition(0, 750);
     // 1 sec 200 pixel
-    this -> neckspeed = 24*(100.0/60.0)*(this -> temponum * this -> speednum);
+    this -> neckspeed = 48*(100.0/60.0)*(this -> temponum * this -> speednum);
     
     // set mouseposition
     this -> MousePosWindow = sf::Mouse::getPosition(*this -> window);
@@ -160,7 +167,7 @@ void Game::initObjects()
     this -> life.setPosition(787, 48);
     
     // set music
-    if(!this -> song_buffer.loadFromFile("/Users/yl/DinoGame/DinoGame/resources/Songs/When-I-Was-A-Boy.wav"))
+    if(!this -> song_buffer.loadFromFile("/Users/yl/DinoGame/DinoGame/resources/Songs/vivaldi_autumn.wav"))
     {
         return EXIT_FAILURE;
     }
@@ -246,9 +253,10 @@ void Game::update_head()
 // for adding and deleting necks
 void Game::update_neck()
 {
-    
-    double time_segemnt = 60.0/temponum;
-    if(this -> curr_song_time < time_segemnt*(this->song_pos))
+    // 一小節4個八分音符 所以除以 8
+    double time_segemnt = 60.0/(temponum*8);
+    // 0.125 is the delay between the track
+    if(this -> curr_song_time < (time_segemnt*(this->song_pos)-0.25))
     {
         return;
     }
