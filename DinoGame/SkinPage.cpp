@@ -2,9 +2,11 @@
 #include "ResourcePath.hpp"
 
 // Constructors Destructors
-SkinPage::SkinPage(sf::RenderWindow *window)
+SkinPage::SkinPage(sf::RenderWindow *window, int& curr_state, std::string& curr_skin)
 {
-    this->window = window;
+    this -> curr_state = curr_state;
+    this -> curr_skin = curr_skin;
+    this -> window = window;
     this->iniNames(names, skinURL);
     this->initVariables();
     //this->initWindow();
@@ -26,7 +28,7 @@ const bool SkinPage::running() const
 void SkinPage::initVariables()
 {
     this->window = nullptr;
-    index = 0;
+    this -> index = 0;
 }
 
 void SkinPage::initWindow()
@@ -39,6 +41,7 @@ void SkinPage::initWindow()
 
 void SkinPage::initObjects()
 {
+    this -> SKIN_NUM = 4;
     // load font
     if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
         throw("ERROR::COULD NOT FIND LOAD FONT");
@@ -73,7 +76,7 @@ void SkinPage::initObjects()
         returnbutton.getGlobalBounds().width, returnbutton.getGlobalBounds().height);
     this->returnbuttonRect = returnTmp;
 
-    if (!this->dinos_texture[index].loadFromFile(resourcePath()+"Resources/Images/"+names[index]+".png"))
+    if (!this->dinos_texture[index].loadFromFile(resourcePath()+"Resources/Images/"+curr_skin+".png"))
         throw("ERROR::EXIT_FAILURE");
     this->dinos[index].setTexture(this->dinos_texture[index]);
     this->dinos[index].setPosition(780, 225);
@@ -90,7 +93,7 @@ void SkinPage::initObjects()
 
 void SkinPage::iniNames(std::string* names, std::string* skinURL)
 {
-    std::ifstream ifs(resourcePath()+"Rresources/skin.txt");
+    std::ifstream ifs(resourcePath()+"Resources/skin.txt");
     if (ifs.is_open()) {
         for(int i = 0; i < SKIN_NUM; i++){
             std::getline(ifs, names[i]);
@@ -119,9 +122,10 @@ void SkinPage::pollEvents()
     }
 }
 
-void SkinPage::update(int& current_state)
+void SkinPage::update()
 {
-    this->pollEvents();
+//    this->pollEvents();
+    sf::Vector2i temp = sf::Mouse::getPosition(*this->window);
     if (ifLeftPressed(sf::Mouse::getPosition(*this->window))) {
         sf::Time cur = time.getElapsedTime();
         if (cur.asSeconds() > 0.15) {
@@ -142,7 +146,7 @@ void SkinPage::update(int& current_state)
     }
     else if (ifReturnPressed(sf::Mouse::getPosition(*this->window))) {
         // change dino skin for every state
-        current_state = 1;
+        this -> curr_state = 1;
         this->window->close();
     }
 
@@ -203,4 +207,17 @@ const bool SkinPage::ifReturnPressed(sf::Vector2i mousePos) const
             return true;
     }
     return false;
+}
+
+void SkinPage::run_skinpage()
+{
+    while(this->running())
+    {
+        update();
+        render();
+        if(this -> curr_state != 3)
+        {
+            break;
+        }
+    }
 }

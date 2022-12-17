@@ -22,6 +22,7 @@ private:
 
     // Game objects
     sf::Font font;
+    std::string curr_music;
     std::string names[MUSIC_NUM];
     std::string musicURL[MUSIC_NUM];
     //std::string coverURL[MUSIC_NUM];
@@ -51,7 +52,7 @@ private:
 
 public:
     // Constructors, Destructors
-    MusicPage(sf::RenderWindow* window);
+    MusicPage(sf::RenderWindow* window, std::string& curr_music);
     ~MusicPage();
 
     // Accessors

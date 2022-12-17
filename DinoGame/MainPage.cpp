@@ -10,8 +10,10 @@
 
 
 // Constructors Destructors
-MainPage::MainPage(sf::RenderWindow* window)
+MainPage::MainPage(sf::RenderWindow* window, std::string skin_name)
 {
+    
+    this -> skin_name = skin_name;
     this -> window = window;
     this -> initObjects();
 }
@@ -30,7 +32,7 @@ void MainPage::initObjects()
         return EXIT_FAILURE;
     }
     // load photos
-    if(!this->dino_texture.loadFromFile(resourcePath()+"Resources/Images/DinoYellow.png"))
+    if(!this->dino_texture.loadFromFile(resourcePath()+"Resources/Images/"+this -> skin_name+".png"))
     {
         return EXIT_FAILURE;
     }
@@ -108,8 +110,17 @@ void MainPage::pollEvents()
 }
 
 
-void MainPage::update(int& current_state)
+void MainPage::update(int& current_state, std::string skin_name)
 {
+    if(skin_name != this -> skin_name)
+    {
+        this -> skin_name = skin_name;
+        if(!this->dino_texture.loadFromFile(resourcePath()+"Resources/Images/"+this -> skin_name+".png"))
+        {
+            return EXIT_FAILURE;
+        }
+        this->dino.setTexture(this->dino_texture);
+    }
     this -> pollEvents();
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 312 && sf::Mouse::getPosition(*this -> window).x < 718 && sf::Mouse::getPosition(*this -> window).y > 1150 && sf::Mouse::getPosition(*this -> window).y < 1340)
     {

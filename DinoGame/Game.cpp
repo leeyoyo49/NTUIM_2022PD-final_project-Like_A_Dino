@@ -10,13 +10,15 @@
 // 找簡單的音樂
 // 最高分更新db
 // 脖子變長
-// game over 畫面
 
 #include "Game.hpp"
 
 // Constructors Destructors
-Game::Game(sf::RenderWindow* window)
+Game::Game(sf::RenderWindow* window, int& current_state, string skin_name, string music_name)
 {
+    this -> change_skin(skin_name);
+    this -> change_song(music_name);
+    current_state = 1;
     this -> window = window;
     this -> initObjects();
 }
@@ -58,6 +60,9 @@ void Game::change_skin(std::string skin_name)
     {
         return EXIT_FAILURE;
     }
+    this -> dinoheadpos.x = 200;
+    this -> dinoheadpos.y = 1100.5;
+    this -> dinohead.setPosition(dinoheadpos);
 }
 
 // Private functions
@@ -117,33 +122,12 @@ void Game::initObjects()
     this -> MousePosWindow = sf::Mouse::getPosition(*this -> window);
     
     // set texture
-    if (!this -> pausebutton_texture.loadFromFile(resourcePath()+"Resources/Images/Stop.png"))
-    {
-        return EXIT_FAILURE;
-    }
-    this -> pausebutton.setTexture(this -> pausebutton_texture);
-    this -> pausebutton.setPosition(50, 1350);
-    
-    if (!this -> dinohead_texture.loadFromFile(resourcePath()+"Resources/Images/DinoYellowHead.png"))
-    {
-        return EXIT_FAILURE;
-    }
-    this -> dinohead.setTexture(this -> dinohead_texture);
-    this -> dinoheadpos.x = 200;
-    this -> dinoheadpos.y = 1100.5;
-    this -> dinohead.setPosition(dinoheadpos);
-    
-    if (!this -> dinoneck_texture.loadFromFile(resourcePath()+"Resources/Images/dinoYellowNeck.png"))
-    {
-        return EXIT_FAILURE;
-    }
-    this -> dinoneck.setTexture(this -> dinoneck_texture);
-    
-    if (!this -> dinobody_texture.loadFromFile(resourcePath()+"Resources/Images/DinoYellowBody.png"))
-    {
-        return EXIT_FAILURE;
-    }
-    this -> dinobody.setTexture(this -> dinobody_texture);
+//    if (!this -> pausebutton_texture.loadFromFile(resourcePath()+"Resources/Images/Stop.png"))
+//    {
+//        return EXIT_FAILURE;
+//    }
+//    this -> pausebutton.setTexture(this -> pausebutton_texture);
+//    this -> pausebutton.setPosition(50, 1350);
     
     if (!this -> dottedline_texture.loadFromFile(resourcePath()+"Resources/Images/dottedline.png"))
     {
@@ -164,6 +148,13 @@ void Game::initObjects()
         return EXIT_FAILURE;
     }
     this -> red_dino_neck.setTexture(red_dino_neck_texture);
+    
+    if(!this -> gameoverscreen_texture.loadFromFile(resourcePath()+"Resources/Images/over.png"))
+    {
+        return EXIT_FAILURE;
+    }
+    this -> gameoverscreen.setTexture(gameoverscreen_texture);
+    this -> gameoverscreen.setPosition(164, 422);
     
     // set music
     if(!this -> song_buffer.loadFromFile(resourcePath()+"Resources/Songs/vivaldi_autumn.wav"))
@@ -301,11 +292,17 @@ void Game::move_neck()
         int lowestneckx = Dinoneck_vector[0].getPosition().x, lowestnecky = Dinoneck_vector[0].getPosition().y;
         if(lowestnecky >= 1100)
         {
-            lifenum --;
-            lifenum_text.setString("X"+to_string(lifenum));
+            lifenum--;
             red_dino_neck.setPosition(lowestneckx, 1110);
+            if(lifenum < 0)
+            {
+                this -> game_end = 1;
+                return;
+            }
+            lifenum_text.setString("X"+to_string(lifenum));
             Dinoneck_vector.erase(Dinoneck_vector.begin());
             this -> minus_life_animation();
+
         }
         else if((lowestnecky+100 >= dinohead.getPosition().y) && (lowestnecky < 1100))
         {
@@ -329,7 +326,7 @@ void Game::move_neck()
             else if(((lowestneckx + 80) <= (dinohead.getPosition().x + 200)) && ((lowestneckx + 80) >= dinohead.getPosition().x))
             {
                 scorenum += 10;
-                score.setString("Score"+to_string(scorenum));
+                score.setString("Score:"+to_string(scorenum));
                 Dinoneck_vector.erase(Dinoneck_vector.begin());
                 if((scorenum % 200 == 0) && (scorenum != 0))
                 {
@@ -387,7 +384,7 @@ void Game::update()
     this -> update_neck();
     this -> move_neck();
     // get mouse loc on screen
-//    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
+    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
 }
 void Game::render()
 {
@@ -416,7 +413,7 @@ void Game::render()
 
 void Game::gameStartpage()
 {
-    sleep(0.3);
+    sleep(0.1);
     sf::Text gamestarttext("Let's Start !", this->font, 70);
     gamestarttext.setFillColor(sf::Color::Black);
     gamestarttext.setPosition(1001, 500);
@@ -429,7 +426,43 @@ void Game::gameStartpage()
     }
 }
 
-int Game::gamerun(int &current_state)
+void Game::gameover()
+{
+    song.pause();
+    this -> Dinoneck_vector.clear();
+    sleep(0.3);
+    sf::Text how_many_life_left("Game Over QQ", font, 70);
+    how_many_life_left.setPosition(200, 700);
+    int cnt = 200;
+    while(cnt -- && this -> running())
+    {
+        this -> window -> clear(background_color);
+        this -> window -> draw(red_dino_neck);
+        this -> window -> draw(life);
+        this -> window -> draw(lifenum_text);
+        this -> window -> draw(life);
+        this -> window -> draw(speed);
+        this -> window -> draw(tempo);
+        this -> window -> draw(score);
+        this -> window -> draw(pausebutton);
+        this -> window -> draw(dottedline);
+        this -> window -> draw(dinohead);
+        this -> window -> draw(how_many_life_left);
+        this -> window -> display();
+    }
+    while (this -> running() && !sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
+        this -> window -> clear(background_color);
+        this -> window -> draw(gameoverscreen);
+        this -> score.setString(to_string(scorenum));
+        this -> score.setPosition(350, 844);
+        this -> score.setCharacterSize(120);
+        this -> window -> draw(score);
+        this -> window -> display();
+    }
+}
+
+
+int Game::gamerun()
 {
     this -> gameStartpage();
     // play song & set song start time
@@ -443,9 +476,7 @@ int Game::gamerun(int &current_state)
         this -> update();
         this -> render();
     }
+    this -> gameover();
 }
 
-void Game::gameover()
-{
-    
-}
+

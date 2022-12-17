@@ -18,6 +18,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <stdio.h>
+#include <string>
 #include "ResourcePath.hpp"
 
 class MainPage
@@ -51,12 +52,14 @@ private:
     sf::Font font;
     sf::Color background_color;
     sf::Vector2i MousePosWindow;
+    
+    std::string skin_name;
     // Private functions
     void initObjects();
 public:
     //Constructors / Destructors
     sf::RenderWindow* window;
-    MainPage(sf::RenderWindow* window);
+    MainPage(sf::RenderWindow* window, std::string skin_name);
 //    virtual ~MainPage();
     
     //Accessors
@@ -64,7 +67,7 @@ public:
     
     //Functions
     void pollEvents();
-    void update(int& current_state);
+    void update(int& current_state, std::string skin_name);
     void render();
 };
 

@@ -70,6 +70,8 @@ private:
     sf::Sprite life;
     sf::Texture red_dino_neck_texture;
     sf::Sprite red_dino_neck;
+    sf::Texture gameoverscreen_texture;
+    sf::Sprite gameoverscreen;
     
     std::vector<sf::Sprite> Dinoneck_vector;
     std::vector<int> song_sheet;
@@ -86,14 +88,14 @@ private:
     
     // Private functions
     void initObjects();
-
     
-
+    
+    
 public:
     sf::RenderWindow* window;
     // Constructors, Destructors
-    Game(sf::RenderWindow* window);
-//    ~Game();
+    Game(sf::RenderWindow* window, int& current_state, string skin_name, string music_name);
+    //    ~Game();
     
     // Accessors
     const bool running() const;
@@ -113,6 +115,6 @@ public:
     void render();
     void gameStartpage();
     void minus_life_animation();
-    int gamerun(int& current_state);
+    int gamerun();
     void gameover();
 };

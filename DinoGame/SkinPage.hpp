@@ -30,7 +30,10 @@ private:
     sf::Texture dinos_texture[NUM];
     sf::Text skinname;
 
+    int curr_state;
     int index;
+    int SKIN_NUM;
+    std::string curr_skin;
     sf::Texture leftbutton_texture;
     sf::Sprite leftbutton;
     sf::IntRect leftbuttonRect;
@@ -54,7 +57,7 @@ private:
 
 public:
     // Constructors, Destructors
-    SkinPage(sf::RenderWindow* window);
+    SkinPage(sf::RenderWindow* window,int& current_state, std::string& curr_skin);
 //    ~SkinPage();
 
     // Accessors
@@ -66,10 +69,11 @@ public:
 
     // Functions
     void pollEvents();
-    void update(int& current_state);
+    void update();
     void updateSkinname();
     void updateDinos();
     void render();
+    void run_skinpage();
 };
 
 #endif

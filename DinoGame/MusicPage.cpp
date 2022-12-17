@@ -2,8 +2,9 @@
 #include "ResourcePath.hpp"
 
 // Constructors Destructors
-MusicPage::MusicPage(sf::RenderWindow* window)
+MusicPage::MusicPage(sf::RenderWindow* window, std::string& curr_music)
 {
+    this -> curr_music = curr_music;
     this->window = window;
     this->iniNames(names, musicURL);
     this->initVariables();
@@ -87,7 +88,7 @@ void MusicPage::initObjects()
     this->cover[index].setPosition(780, 225);*/
 
     // set music
-    if (!this->music.openFromFile(resourcePath()+"Resources/Songs/"+names[0]+".wav"))
+    if (!this->music.openFromFile(resourcePath()+"Resources/Songs/"+curr_music+".wav"))
         throw("ERROR::EXIT_FAILURE");
     music.play();
 }
