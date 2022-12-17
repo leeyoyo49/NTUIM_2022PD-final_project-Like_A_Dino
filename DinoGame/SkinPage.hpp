@@ -1,7 +1,7 @@
 #ifndef SkinPage_hpp
 #define SkinPage_hpp
 
-#include "ResourcePath.hpp"
+//#include "ResourcePath.hpp"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -30,7 +30,10 @@ private:
     sf::Texture dinos_texture[NUM];
     sf::Text skinname;
 
+    int curr_state;
     int index;
+    int SKIN_NUM;
+    std::string curr_skin;
     sf::Texture leftbutton_texture;
     sf::Sprite leftbutton;
     sf::IntRect leftbuttonRect;
@@ -45,7 +48,7 @@ private:
     sf::Sound when_i_was_a_boy_song;
 
     // Private functions
-    void iniNames(std::string *names, std::string *skinURL);
+    void iniNames(std::string* names, std::string* skinURL);
     void initVariables();
     void initWindow();
     void initObjects();
@@ -54,10 +57,10 @@ private:
 
 public:
     // Constructors, Destructors
-    SkinPage(sf::RenderWindow* window);
-//    ~SkinPage();
+    SkinPage(sf::RenderWindow* window, int& current_state, std::string& curr_skin);
+    //    ~SkinPage();
 
-    // Accessors
+        // Accessors
     sf::Clock time;
     const bool running() const;
     const bool ifLeftPressed(sf::Vector2i mousePos) const;
@@ -70,6 +73,7 @@ public:
     void updateSkinname();
     void updateDinos();
     void render();
+    void run_skinpage();
 };
 
 #endif

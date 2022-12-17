@@ -1,11 +1,15 @@
 #include "SkinPage.hpp"
+#include "ResourcePath.hpp"
 
 // Constructors Destructors
-SkinPage::SkinPage(sf::RenderWindow* window)
+SkinPage::SkinPage(sf::RenderWindow* window, int& current_state, std::string& curr_skin)
 {
+    this->curr_state = current_state;
+    this->curr_skin = curr_skin;
     this->window = window;
     this->iniNames(names, skinURL);
     this->initVariables();
+    //this->initWindow();
     this->initObjects();
 }
 
@@ -24,7 +28,7 @@ const bool SkinPage::running() const
 void SkinPage::initVariables()
 {
     this->window = nullptr;
-    index = 0;
+    this->index = 0;
 }
 
 void SkinPage::initWindow()
@@ -37,23 +41,17 @@ void SkinPage::initWindow()
 
 void SkinPage::initObjects()
 {
+    this->SKIN_NUM = 4;
     // load font
-    if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
+    if (!font.loadFromFile("./Resources/Fonts/ComicGeckoPro.otf")) {
         throw("ERROR::COULD NOT FIND LOAD FONT");
     }
 
     // set background color
     this->background_color = sf::Color(255, 204, 153);
 
-    // set text
-    this->skinname.setString(names[index]);
-    this->skinname.setFillColor(sf::Color::Black);
-    this->skinname.setFont(font);
-    this->skinname.setCharacterSize(64);
-    this->skinname.setPosition(830, 100);
-
     // set texture
-    if (!this->leftbutton_texture.loadFromFile(resourcePath()+"Resources/Images/left.png"))
+    if (!this->leftbutton_texture.loadFromFile("./Resources/Images/left.png"))
         throw("ERROR::EXIT_FAILURE");
     this->leftbutton.setTexture(this->leftbutton_texture);
     this->leftbutton.setPosition(150, 530);
@@ -61,7 +59,7 @@ void SkinPage::initObjects()
         leftbutton.getGlobalBounds().width, leftbutton.getGlobalBounds().height);
     this->leftbuttonRect = leftTmp;
 
-    if (!this->rightbutton_texture.loadFromFile(resourcePath()+"Resources/Images/right.png"))
+    if (!this->rightbutton_texture.loadFromFile("./Resources/Images/right.png"))
         throw("ERROR::EXIT_FAILURE");
     this->rightbutton.setTexture(this->rightbutton_texture);
     this->rightbutton.setPosition(1770, 530);
@@ -78,26 +76,27 @@ void SkinPage::initObjects()
         returnbutton.getGlobalBounds().width, returnbutton.getGlobalBounds().height);
     this->returnbuttonRect = returnTmp;
 
-    if (!this->dinos_texture[index].loadFromFile(skinURL[index]))
+    if (!this->dinos_texture[index].loadFromFile("./Resources/Images/" + curr_skin + ".png"))
         throw("ERROR::EXIT_FAILURE");
     this->dinos[index].setTexture(this->dinos_texture[index]);
     this->dinos[index].setPosition(780, 225);
 
-    // set music
-    /*if (!this->when_i_was_a_boy_buffer.loadFromFile("/Users/yl/DinoGame/DinoGame/resources/When-I-Was-A-Boy.wav"))
-    {
-        return EXIT_FAILURE;
-    }
-    when_i_was_a_boy_song.setBuffer(when_i_was_a_boy_buffer);*/
+    // set text
+    this->skinname.setString(names[index]);
+    this->skinname.setFillColor(sf::Color::Black);
+    this->skinname.setFont(font);
+    this->skinname.setCharacterSize(64);
+    this->skinname.setPosition(dinos[0].getPosition().x + dinos[0].getGlobalBounds().width / 2
+        - skinname.getGlobalBounds().width / 2, 100);
+
 }
 
 void SkinPage::iniNames(std::string* names, std::string* skinURL)
 {
-    std::ifstream ifs(resourcePath()+"Resources/skin.txt");
+    std::ifstream ifs("./Resources/skin.txt");
     if (ifs.is_open()) {
-        for(int i = 0; i < NUM; i++){
+        for (int i = 0; i < SKIN_NUM; i++) {
             std::getline(ifs, names[i]);
-            std::getline(ifs, skinURL[i]);
         }
     }
     ifs.close();
@@ -125,27 +124,29 @@ void SkinPage::pollEvents()
 
 void SkinPage::update()
 {
-    this->pollEvents();
+    //    this->pollEvents();
+    sf::Vector2i temp = sf::Mouse::getPosition(*this->window);
     if (ifLeftPressed(sf::Mouse::getPosition(*this->window))) {
         sf::Time cur = time.getElapsedTime();
         if (cur.asSeconds() > 0.15) {
             index--;
             if (index < 0)
-                index = NUM - 1;
+                index = SKIN_NUM - 1;
             time.restart();
         }
     }
-    else if(ifRightPressed(sf::Mouse::getPosition(*this->window))){
+    else if (ifRightPressed(sf::Mouse::getPosition(*this->window))) {
         sf::Time cur = time.getElapsedTime();
         if (cur.asSeconds() > 0.15) {
             index++;
-            if (index == NUM)
+            if (index == SKIN_NUM)
                 index = 0;
             time.restart();
         }
     }
     else if (ifReturnPressed(sf::Mouse::getPosition(*this->window))) {
-        // jump back to main state
+        // change dino skin for every state
+        this->curr_state = 1;
         this->window->close();
     }
 
@@ -169,12 +170,15 @@ void SkinPage::render()
 
 void SkinPage::updateSkinname()
 {
-    this->skinname.setString(names[index]);
+    curr_skin = names[index];
+    this->skinname.setString(curr_skin);
+    this->skinname.setPosition(dinos[index].getPosition().x + dinos[index].getGlobalBounds().width / 2
+        - skinname.getGlobalBounds().width / 2, 100);
 }
 
 void SkinPage::updateDinos()
 {
-    this->dinos_texture[index].loadFromFile(skinURL[index]);
+    this->dinos_texture[index].loadFromFile("./Resources/Images/" + curr_skin + ".png");
     this->dinos[index].setTexture(this->dinos_texture[index]);
     this->dinos[index].setPosition(780, 225);
 }
@@ -204,4 +208,17 @@ const bool SkinPage::ifReturnPressed(sf::Vector2i mousePos) const
             return true;
     }
     return false;
+}
+
+void SkinPage::run_skinpage()
+{
+    while (this->running())
+    {
+        update();
+        render();
+        if (this->curr_state != 3)
+        {
+            break;
+        }
+    }
 }

@@ -1,11 +1,14 @@
 #include "MusicPage.hpp"
+//#include "ResourcePath.hpp"
 
 // Constructors Destructors
-MusicPage::MusicPage()
+MusicPage::MusicPage(sf::RenderWindow* window, int current_state, std::string& music_name)
 {
+    this->curr_music = music_name;
+    this->window = window;
     this->iniNames(names, musicURL);
     this->initVariables();
-    this->initWindow();
+    //this->initWindow();
     this->initObjects();
 }
 
@@ -15,7 +18,7 @@ MusicPage::~MusicPage()
 }
 
 // Accessors
-const bool MusicPage::running() const
+const bool MusicPage::running()
 {
     return this->window->isOpen();
 }
@@ -38,7 +41,8 @@ void MusicPage::initWindow()
 void MusicPage::initObjects()
 {
     // load font
-    if (!font.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/ComicGeckoPro.otf")) {
+    if (!font.loadFromFile("./Resources/Fonts/ComicGeckoPro.otf"))
+    {
         throw("ERROR::COULD NOT FIND LOAD FONT");
     }
 
@@ -53,7 +57,7 @@ void MusicPage::initObjects()
     this->musicname.setPosition(730, 100);
 
     // set texture
-    if (!this->leftbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/left.png"))
+    if (!this->leftbutton_texture.loadFromFile("./Resources/Images/left.png"))
         throw("ERROR::EXIT_FAILURE");
     this->leftbutton.setTexture(this->leftbutton_texture);
     this->leftbutton.setPosition(150, 530);
@@ -61,7 +65,7 @@ void MusicPage::initObjects()
         leftbutton.getGlobalBounds().width, leftbutton.getGlobalBounds().height);
     this->leftbuttonRect = leftTmp;
 
-    if (!this->rightbutton_texture.loadFromFile("/Users/User/source/repos/Dino/Dino/resources/right.png"))
+    if (!this->rightbutton_texture.loadFromFile("./Resources/Images/right.png"))
         throw("ERROR::EXIT_FAILURE");
     this->rightbutton.setTexture(this->rightbutton_texture);
     this->rightbutton.setPosition(1770, 530);
@@ -84,14 +88,14 @@ void MusicPage::initObjects()
     this->cover[index].setPosition(780, 225);*/
 
     // set music
-    if (!this->music.openFromFile(musicURL[0]))
+    if (!this->music.openFromFile("./Resources/Songs/" + curr_music + ".wav"))
         throw("ERROR::EXIT_FAILURE");
     music.play();
 }
 
-void MusicPage::iniNames(std::string* names, std::string* skinURL)
+void MusicPage::iniNames(std::string* names, std::string* musicURL)
 {
-    std::ifstream ifs("resources/music.txt");
+    std::ifstream ifs("./Resources/music.txt");
     if (ifs.is_open()) {
         for (int i = 0; i < MUSIC_NUM; i++) {
             std::getline(ifs, names[i]);
@@ -146,7 +150,7 @@ void MusicPage::update()
     }
     else if (ifReturnPressed(sf::Mouse::getPosition(*this->window))) {
         // change music for every states
-        // jump back to main state
+        this->curr_state = 1;
         this->window->close();
     }
 
@@ -168,15 +172,29 @@ void MusicPage::render()
     this->window->display();
 }
 
+void MusicPage::run_musicpage()
+{
+    while (this->running())
+    {
+        update();
+        render();
+        if (this->curr_state != 4)
+        {
+            break;
+        }
+    }
+}
+
 void MusicPage::updateMusicname()
 {
+    this->curr_music = musicURL[index];
     this->musicname.setString(names[index]);
 }
 
 void MusicPage::updateMusic()
 {
     music.stop();
-    music.openFromFile(musicURL[index]);
+    music.openFromFile( "./Resources/Songs/" + musicURL[index] + ".wav");
     music.play();
 }
 

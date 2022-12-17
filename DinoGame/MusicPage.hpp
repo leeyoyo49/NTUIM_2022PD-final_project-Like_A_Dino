@@ -1,73 +1,66 @@
-#ifndef MusicPage_hpp
-#define MusicPage_hpp
+#pragma once
 
-#include <string>
-#include <iostream>
-#include<fstream>
-#include <SFML/Graphics.hpp>
+#ifndef MainPage_hpp
+#define MainPage_hpp
+
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <stdio.h>
+#include <string>
+//#include "ResourcePath.hpp"
 
-const int MUSIC_NUM = 1;
-class MusicPage
+class MainPage
 {
 private:
-    // Variables
-    // window
-    sf::Color background_color;
-    sf::RenderWindow* window;
+    //Variables / Windows
     sf::VideoMode videoMode;
-    sf::Event ev;
+    sf::Event event;
 
-    // Game objects
+    //Game objects
+    sf::Text like_a_dino;
+    sf::Text song_name;
+    sf::Texture info_texture;
+    sf::Sprite info;
+
+    sf::Texture scoreboard_texture;
+    sf::Sprite scoreboard;
+
+    sf::Texture dino_texture;
+    sf::Sprite dino;
+
+    sf::Texture startbutton_texture;
+    sf::Sprite startbutton;
+
+    sf::Texture skin_texture;
+    sf::Sprite skin;
+
+    sf::Texture music_texture;
+    sf::Sprite music;
+
     sf::Font font;
-    std::string names[MUSIC_NUM];
-    std::string musicURL[MUSIC_NUM];
-    //std::string coverURL[MUSIC_NUM];
-    //sf::Sprite cover[SKIN_NUM];
-    //sf::Texture cover_texture[SKIN_NUM];
-    sf::Text musicname;
+    sf::Color background_color;
+    sf::Vector2i MousePosWindow;
 
-    int index;
-    sf::Texture leftbutton_texture;
-    sf::Sprite leftbutton;
-    sf::IntRect leftbuttonRect;
-    sf::Texture rightbutton_texture;
-    sf::Sprite rightbutton;
-    sf::IntRect rightbuttonRect;
-    sf::Text returnbutton;
-    sf::IntRect returnbuttonRect;
-
-    sf::Music music;
-
+    std::string skin_name;
     // Private functions
-    void iniNames(std::string* names, std::string* skinURL);
-    void initVariables();
-    void initWindow();
     void initObjects();
-
-
-
 public:
-    // Constructors, Destructors
-    MusicPage();
-    ~MusicPage();
+    //Constructors / Destructors
+    sf::RenderWindow* window;
+    MainPage(sf::RenderWindow* window, std::string skin_name);
+    //    virtual ~MainPage();
 
-    // Accessors
-    sf::Clock time;
+        //Accessors
     const bool running() const;
-    const bool ifLeftPressed(sf::Vector2i mousePos) const;
-    const bool ifRightPressed(sf::Vector2i mousePos) const;
-    const bool ifReturnPressed(sf::Vector2i mousePos) const;
 
-    // Functions
+    //Functions
     void pollEvents();
-    void update();
-    void updateMusicname();
-    void updateMusic();
-    //void updateCover();
+    void update(int& current_state, std::string skin_name);
     void render();
 };
 
-#endif
+#endif /* game_hpp */
