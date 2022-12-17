@@ -20,7 +20,6 @@ int main(int, char const**)
     {
         switch (current_state) {
             case 1:{
-                sleep(0.5);
                 MainPage mainpage(window, current_state, skin_name, music_name);
                 mainpage.runmainpage();
                 break;

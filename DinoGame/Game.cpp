@@ -205,7 +205,7 @@ void Game::pollEvents()
 
 void Game::updateMousePositions()
 {
-//    this -> MousePosWindow = sf::Mouse::getPosition(*this->window);
+    this -> MousePosWindow = sf::Mouse::getPosition(*this->window);
 }
 void Game::update_time()
 {
@@ -280,9 +280,6 @@ void Game::move_neck()
     {
         double temponum = this -> temponum;
         double move_dis = ((this -> neckspeed)*(this->time_since_last_update));
-//        std::cout << (((100)*(temponum)*(this->speednum))/60);
-//        std::cout << " ";
-//        std::cout << (this->time_since_last_update) << std::endl;
         neck.move(0, move_dis);
     }
     // touch dino head delete neck
@@ -384,7 +381,7 @@ void Game::update()
     this -> update_neck();
     this -> move_neck();
     // get mouse loc on screen
-    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
+//    std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
 }
 void Game::render()
 {
