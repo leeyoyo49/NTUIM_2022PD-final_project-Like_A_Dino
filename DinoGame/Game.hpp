@@ -17,6 +17,7 @@
 #include <queue>
 #include <unistd.h>
 #include <sstream>
+#include <algorithm>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -42,6 +43,7 @@ private:
     int draw_red = 0;
     sf::Font font;
     
+    vector <int> scorearr;
     int scorenum;
     sf::Text score;
     int lifenum;
@@ -88,7 +90,6 @@ private:
     
     // Private functions
     void initObjects();
-    
     
     
 public:

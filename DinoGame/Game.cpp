@@ -68,6 +68,20 @@ void Game::change_skin(std::string skin_name)
 // Private functions
 void Game::initObjects()
 {
+    // read high scores
+    fstream in;
+    in.open(resourcePath()+"Resources/score.txt");
+    int tempnum;
+    if(in)
+    {
+        for(int i = 0; i < 5; i ++)
+        {
+            in >> tempnum;
+            this -> scorearr.push_back(tempnum);
+        }
+    }
+    in.close();
+    
     this -> ss.precision(1);
     // load font
     if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
@@ -425,6 +439,17 @@ void Game::gameStartpage()
 
 void Game::gameover()
 {
+    // update score
+    this -> scorearr.push_back(this -> scorenum);
+    sort(scorearr.begin(), scorearr.end());
+    ofstream out;
+    out.open(resourcePath()+"Resources/score.txt", ios::out | ios::trunc);
+    for(int i = 0; i < 5; i ++)
+    {
+        out << this -> scorearr[i] << '\n';
+    }
+    
+    // end animation
     song.pause();
     this -> Dinoneck_vector.clear();
     sleep(0.3);
