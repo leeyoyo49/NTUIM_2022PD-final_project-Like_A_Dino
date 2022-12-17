@@ -19,6 +19,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <fstream>
 #include "ResourcePath.hpp"
 
 using namespace std;
@@ -33,6 +34,18 @@ private:
     //Game objects
     sf::Text like_a_dino;
     sf::Text song_name;
+    sf::Text character_name;
+    std::string one;
+    sf::Text scoreone;
+    std::string two;
+    sf::Text scoretwo;
+    std::string three;
+    sf::Text scorethree;
+    std::string four;
+    sf::Text scorefour;
+    std::string five;
+    sf::Text scorefive;
+    std::ifstream file;
     sf::Texture info_texture;
     sf::Sprite info;
     

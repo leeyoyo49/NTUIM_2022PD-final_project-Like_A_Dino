@@ -30,38 +30,54 @@ void MainPage::initObjects()
 {
     // load font
     if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     // load photos
     if(!this->dino_texture.loadFromFile(resourcePath()+"Resources/Images/"+this -> skin_name+".png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     if(!this->info_texture.loadFromFile(resourcePath()+"Resources/Images/Information.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     if(!this->startbutton_texture.loadFromFile(resourcePath()+"Resources/Images/StartBrown.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     if(!this->scoreboard_texture.loadFromFile(resourcePath()+"Resources/Images/scoreboard.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     if(!this->skin_texture.loadFromFile(resourcePath()+"Resources/Images/skin.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     if(!this->music_texture.loadFromFile(resourcePath()+"Resources/Images/Music.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     // set background color
     this->background_color = sf::Color(255, 204, 153, 255);
     this->like_a_dino.setString("Like A Dino!");
     this->song_name.setString(this->music_name);
+    this->character_name.setString(this->skin_name);
     // set text
+    std::ifstream file;
+    file.open("score.txt");
+    if(file.is_open())
+    {
+        std::getline(file, one);
+        std::getline(file, two);
+        std::getline(file, three);
+        std::getline(file, four);
+        std::getline(file, five);
+    }
+    this->scoreone.setString("2000");
+    this->scoretwo.setString("1500");
+    this->scorethree.setString(three);
+    this->scorefour.setString(four);
+    this->scorefive.setString(five);
     
     // set mouseposition
     this->MousePosWindow = sf::Mouse::getPosition(*this -> window);
@@ -71,10 +87,34 @@ void MainPage::initObjects()
     this->like_a_dino.setFont(font);
     this->like_a_dino.setFillColor(sf::Color::Black);
     this->like_a_dino.setCharacterSize(107);
-    this->song_name.setPosition(130, 560);
+    this->song_name.setPosition(140, 580);
     this->song_name.setFont(font);
     this->song_name.setFillColor(sf::Color::Black);
     this->song_name.setCharacterSize(30);
+    this->scoreone.setPosition(180, 700);
+    this->scoreone.setFont(font);
+    this->scoreone.setFillColor(sf::Color::Black);
+    this->scoreone.setCharacterSize(30);
+    this->scoretwo.setPosition(180, 765);
+    this->scoretwo.setFont(font);
+    this->scoretwo.setFillColor(sf::Color::Black);
+    this->scoretwo.setCharacterSize(30);
+    this->scorethree.setPosition(180, 830);
+    this->scorethree.setFont(font);
+    this->scorethree.setFillColor(sf::Color::Black);
+    this->scorethree.setCharacterSize(30);
+    this->scorefour.setPosition(180, 895);
+    this->scorefour.setFont(font);
+    this->scorefour.setFillColor(sf::Color::Black);
+    this->scorefour.setCharacterSize(30);
+    this->scorefive.setPosition(180, 960);
+    this->scorefive.setFont(font);
+    this->scorefive.setFillColor(sf::Color::Black);
+    this->scorefive.setCharacterSize(30);
+    this->character_name.setPosition(650, 1040);
+    this->character_name.setFont(font);
+    this->character_name.setFillColor(sf::Color::Black);
+    this->character_name.setCharacterSize(60);
     this->info.setTexture(this->info_texture);
     this->info.setPosition(50, 40);
     this->scoreboard.setTexture(this->scoreboard_texture);
@@ -87,6 +127,7 @@ void MainPage::initObjects()
     this->skin.setPosition(50, 1340);
     this->music.setTexture(this->music_texture);
     this->music.setPosition(820, 1340);
+    
 }
 
 
@@ -126,6 +167,10 @@ void MainPage::update()
     {
         current_state = 4;
     }
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 48 && sf::Mouse::getPosition(*this -> window).x < 162 && sf::Mouse::getPosition(*this -> window).y > 40 && sf::Mouse::getPosition(*this -> window).y < 140)
+    {
+        current_state = 5;
+    }
     // get mouse loc on screen
     //std::cout << sf::Mouse::getPosition(*this -> window).x << ' ' << sf::Mouse::getPosition(*this -> window).y << std::endl;
 }
@@ -141,6 +186,12 @@ void MainPage::render()
     this->window->draw(music);
     this->window->draw(like_a_dino);
     this->window->draw(song_name);
+    this->window->draw(character_name);
+    this->window->draw(scoreone);
+    this->window->draw(scoretwo);
+    this->window->draw(scorethree);
+    this->window->draw(scorefour);
+    this->window->draw(scorefive);
     this->window->display();
 }
 

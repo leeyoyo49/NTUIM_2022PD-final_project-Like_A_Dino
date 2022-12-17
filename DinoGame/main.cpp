@@ -2,6 +2,7 @@
 #include "MusicPage.hpp"
 #include "MainPage.hpp"
 #include "Game.hpp"
+#include "InfoPage.hpp"
 
 using namespace std;
 
@@ -40,6 +41,12 @@ int main(int, char const**)
                 musicpage.run_musicpage();
                 current_state = 1;
                 break;
+            }
+            case 5:{
+                /*InfoPage infopage(window,current_state);
+                infopage.runinfopage();
+                current_state = 1;
+                break;*/
             }
             default:
                 break;
