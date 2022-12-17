@@ -257,7 +257,7 @@ void Game::update_neck()
     {
         return;
     }
-    std::cout << curr_song_time << std::endl;
+//    std::cout << curr_song_time << std::endl;
     // add new neck
     int added_note = this -> song_sheet[this -> song_pos];
     switch (added_note)
