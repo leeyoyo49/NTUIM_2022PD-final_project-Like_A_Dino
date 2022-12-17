@@ -21,6 +21,8 @@
 #include <string>
 #include "ResourcePath.hpp"
 
+using namespace std;
+
 class MainPage
 {
 private:
@@ -54,21 +56,23 @@ private:
     sf::Vector2i MousePosWindow;
     
     std::string skin_name;
+    std::string music_name;
     // Private functions
     void initObjects();
 public:
     //Constructors / Destructors
     sf::RenderWindow* window;
-    MainPage(sf::RenderWindow* window, std::string skin_name);
+    MainPage(sf::RenderWindow* window, int& current_state, std::string skin_name, std::string music_name);
 //    virtual ~MainPage();
-    
+    int& current_state;
     //Accessors
     const bool running() const;
     
     //Functions
     void pollEvents();
-    void update(int& current_state, std::string skin_name);
+    void update();
     void render();
+    void runmainpage();
 };
 
 

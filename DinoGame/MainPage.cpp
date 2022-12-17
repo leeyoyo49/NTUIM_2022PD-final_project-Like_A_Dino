@@ -10,9 +10,10 @@
 
 
 // Constructors Destructors
-MainPage::MainPage(sf::RenderWindow* window, std::string skin_name)
+MainPage::MainPage(sf::RenderWindow* window, int& current_state, std::string skin_name, std::string music_name) : current_state(current_state)
 {
-    
+    this -> music_name = music_name;
+    this -> current_state = current_state;
     this -> skin_name = skin_name;
     this -> window = window;
     this -> initObjects();
@@ -59,7 +60,7 @@ void MainPage::initObjects()
     // set background color
     this->background_color = sf::Color(255, 204, 153, 255);
     this->like_a_dino.setString("Like A Dino!");
-    this->song_name.setString("Theme Ku");
+    this->song_name.setString(this->music_name);
     // set text
     
     // set mouseposition
@@ -73,7 +74,7 @@ void MainPage::initObjects()
     this->song_name.setPosition(130, 560);
     this->song_name.setFont(font);
     this->song_name.setFillColor(sf::Color::Black);
-    this->song_name.setCharacterSize(50);
+    this->song_name.setCharacterSize(30);
     this->info.setTexture(this->info_texture);
     this->info.setPosition(50, 40);
     this->scoreboard.setTexture(this->scoreboard_texture);
@@ -110,17 +111,8 @@ void MainPage::pollEvents()
 }
 
 
-void MainPage::update(int& current_state, std::string skin_name)
+void MainPage::update()
 {
-    if(skin_name != this -> skin_name)
-    {
-        this -> skin_name = skin_name;
-        if(!this->dino_texture.loadFromFile(resourcePath()+"Resources/Images/"+this -> skin_name+".png"))
-        {
-            return EXIT_FAILURE;
-        }
-        this->dino.setTexture(this->dino_texture);
-    }
     this -> pollEvents();
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 312 && sf::Mouse::getPosition(*this -> window).x < 718 && sf::Mouse::getPosition(*this -> window).y > 1150 && sf::Mouse::getPosition(*this -> window).y < 1340)
     {
@@ -150,4 +142,12 @@ void MainPage::render()
     this->window->draw(like_a_dino);
     this->window->draw(song_name);
     this->window->display();
+}
+
+void MainPage::runmainpage()
+{
+    while (this -> running() && (current_state == 1)) {
+        this -> update();
+        this -> render();
+    }
 }

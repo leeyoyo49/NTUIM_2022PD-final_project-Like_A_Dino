@@ -1,7 +1,7 @@
 #ifndef SkinPage_hpp
 #define SkinPage_hpp
 
-#include "ResourcePath.hpp"
+//#include "ResourcePath.hpp"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -10,6 +10,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+using namespace std;
 
 const int NUM = 7; // skin num
 class SkinPage
@@ -25,7 +26,6 @@ private:
     // Game objects
     sf::Font font;
     std::string names[NUM];
-    std::string skinURL[NUM];
     sf::Sprite dinos[NUM];
     sf::Texture dinos_texture[NUM];
     sf::Text skinname;
@@ -33,7 +33,7 @@ private:
     int curr_state;
     int index;
     int SKIN_NUM;
-    std::string curr_skin;
+    std::string& curr_skin;
     sf::Texture leftbutton_texture;
     sf::Sprite leftbutton;
     sf::IntRect leftbuttonRect;
@@ -48,7 +48,7 @@ private:
     sf::Sound when_i_was_a_boy_song;
 
     // Private functions
-    void iniNames(std::string *names, std::string *skinURL);
+    void iniNames(std::string* names);
     void initVariables();
     void initWindow();
     void initObjects();
@@ -57,10 +57,10 @@ private:
 
 public:
     // Constructors, Destructors
-    SkinPage(sf::RenderWindow* window,int& current_state, std::string& curr_skin);
-//    ~SkinPage();
+    SkinPage(sf::RenderWindow* window, int& current_state, std::string& curr_skin);
+    //    ~SkinPage();
 
-    // Accessors
+        // Accessors
     sf::Clock time;
     const bool running() const;
     const bool ifLeftPressed(sf::Vector2i mousePos) const;

@@ -205,7 +205,7 @@ void Game::pollEvents()
 
 void Game::updateMousePositions()
 {
-    this -> MousePosWindow = sf::Mouse::getPosition(*this->window);
+//    this -> MousePosWindow = sf::Mouse::getPosition(*this->window);
 }
 void Game::update_time()
 {

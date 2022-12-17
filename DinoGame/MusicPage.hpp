@@ -9,7 +9,10 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 
-const int MUSIC_NUM = 1;
+
+using namespace std;
+
+const int MUSIC_NUM = 3;
 class MusicPage
 {
 private:
@@ -22,15 +25,16 @@ private:
 
     // Game objects
     sf::Font font;
-    std::string curr_music;
+    std::string& curr_music;
     std::string names[MUSIC_NUM];
     std::string musicURL[MUSIC_NUM];
-    //std::string coverURL[MUSIC_NUM];
-    //sf::Sprite cover[SKIN_NUM];
-    //sf::Texture cover_texture[SKIN_NUM];
+    sf::Sprite cover[MUSIC_NUM];
+    sf::Texture cover_texture[MUSIC_NUM];
     sf::Text musicname;
 
-    int index;
+    int curr_state;
+    int index = 0;
+    int SKIN_NUM;
     sf::Texture leftbutton_texture;
     sf::Sprite leftbutton;
     sf::IntRect leftbuttonRect;
@@ -43,7 +47,7 @@ private:
     sf::Music music;
 
     // Private functions
-    void iniNames(std::string* names, std::string* skinURL);
+    void iniNames(std::string* names, std::string* musicURL);
     void initVariables();
     void initWindow();
     void initObjects();
@@ -52,8 +56,8 @@ private:
 
 public:
     // Constructors, Destructors
-    MusicPage(sf::RenderWindow* window, std::string& curr_music);
-    ~MusicPage();
+    MusicPage(sf::RenderWindow* window, int& current_state, std::string& music_name);
+//~MusicPage()
 
     // Accessors
     sf::Clock time;
@@ -64,11 +68,12 @@ public:
 
     // Functions
     void pollEvents();
-    void update(int& current_state);
+    void update();
     void updateMusicname();
     void updateMusic();
-    //void updateCover();
+    void updateCover();
     void render();
+    void run_musicpage();
 };
 
 #endif
