@@ -50,7 +50,7 @@ void MusicPage::initObjects()
     this->background_color = sf::Color(255, 204, 153);
 
     // set text
-    this->musicname.setString(names[index]);
+    this->music.setString(names[index]);
     this->musicname.setFillColor(sf::Color::Black);
     this->musicname.setFont(font);
     this->musicname.setCharacterSize(64);
