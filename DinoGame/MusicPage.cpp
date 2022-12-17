@@ -7,7 +7,6 @@ MusicPage::MusicPage(sf::RenderWindow* window, int current_state, std::string& m
     this->curr_music = music_name;
     this->window = window;
     this->iniNames(names, musicURL);
-    this->initVariables();
     //this->initWindow();
     this->initObjects();
 }
@@ -24,12 +23,6 @@ const bool MusicPage::running()
 }
 
 // Private functions
-void MusicPage::initVariables()
-{
-    this->window = nullptr;
-    index = 0;
-}
-
 void MusicPage::initWindow()
 {
     this->videoMode.height = 1080;

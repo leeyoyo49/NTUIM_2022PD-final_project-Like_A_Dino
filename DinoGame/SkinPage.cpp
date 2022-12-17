@@ -8,7 +8,6 @@ SkinPage::SkinPage(sf::RenderWindow* window, int& current_state, std::string& cu
     this->curr_skin = curr_skin;
     this->window = window;
     this->iniNames(names, skinURL);
-    this->initVariables();
     //this->initWindow();
     this->initObjects();
 }
@@ -25,12 +24,6 @@ const bool SkinPage::running() const
 }
 
 // Private functions
-void SkinPage::initVariables()
-{
-    this->window = nullptr;
-    this->index = 0;
-}
-
 void SkinPage::initWindow()
 {
     this->videoMode.height = 1080;

@@ -31,7 +31,7 @@ private:
     sf::Text musicname;
 
     int curr_state;
-    int index;
+    int index = 0;
     int SKIN_NUM;
     sf::Texture leftbutton_texture;
     sf::Sprite leftbutton;
@@ -46,7 +46,6 @@ private:
 
     // Private functions
     void iniNames(std::string* names, std::string* musicURL);
-    void initVariables();
     void initWindow();
     void initObjects();
 

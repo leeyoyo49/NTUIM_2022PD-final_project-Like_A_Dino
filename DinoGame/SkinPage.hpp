@@ -49,7 +49,6 @@ private:
 
     // Private functions
     void iniNames(std::string* names, std::string* skinURL);
-    void initVariables();
     void initWindow();
     void initObjects();
 
