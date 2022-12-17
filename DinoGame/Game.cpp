@@ -16,15 +16,17 @@
 // Constructors Destructors
 Game::Game(sf::RenderWindow* window, int& current_state, string skin_name, string music_name)
 {
-    this -> change_skin(skin_name);
-    this -> change_song(music_name);
+
     current_state = 1;
     this -> window = window;
     this -> initObjects();
+    this -> change_skin(skin_name);
+    this -> change_song(music_name);
 }
 //Game::~Game()
 //{
 //    delete this->window;
+
 //}
 
 // Accessors
