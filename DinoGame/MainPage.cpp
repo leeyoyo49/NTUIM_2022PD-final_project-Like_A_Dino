@@ -73,15 +73,15 @@ void MainPage::initObjects()
         {
             in >> tempnum;
             scorearr.push_back(tempnum);
-            cout << tempnum << ' ';
+            //cout << tempnum << ' ';
         }
     }
     in.close();
-    this->scoreone.setString((scorearr[0]));
-    this->scoretwo.setString((scorearr[1]));
+    this->scoreone.setString((scorearr[4]));
+    this->scoretwo.setString((scorearr[3]));
     this->scorethree.setString((scorearr[2]));
-    this->scorefour.setString((scorearr[3]));
-    this->scorefive.setString((scorearr[4]));
+    this->scorefour.setString((scorearr[1]));
+    this->scorefive.setString((scorearr[0]));
     
     // set mouseposition
     this->MousePosWindow = sf::Mouse::getPosition(*this -> window);
@@ -99,19 +99,19 @@ void MainPage::initObjects()
     this->scoreone.setFont(font);
     this->scoreone.setFillColor(sf::Color::Black);
     this->scoreone.setCharacterSize(30);
-    this->scoretwo.setPosition(180, 765);
+    this->scoretwo.setPosition(180, 767);
     this->scoretwo.setFont(font);
     this->scoretwo.setFillColor(sf::Color::Black);
     this->scoretwo.setCharacterSize(30);
-    this->scorethree.setPosition(180, 830);
+    this->scorethree.setPosition(180, 835);
     this->scorethree.setFont(font);
     this->scorethree.setFillColor(sf::Color::Black);
     this->scorethree.setCharacterSize(30);
-    this->scorefour.setPosition(180, 895);
+    this->scorefour.setPosition(180, 905);
     this->scorefour.setFont(font);
     this->scorefour.setFillColor(sf::Color::Black);
     this->scorefour.setCharacterSize(30);
-    this->scorefive.setPosition(180, 960);
+    this->scorefive.setPosition(180, 980);
     this->scorefive.setFont(font);
     this->scorefive.setFillColor(sf::Color::Black);
     this->scorefive.setCharacterSize(30);

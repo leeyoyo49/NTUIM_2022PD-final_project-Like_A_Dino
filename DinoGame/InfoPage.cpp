@@ -31,23 +31,23 @@ void InfoPage::initObjects()
         throw("ERROR::EXIT_FAILURE");
     }
     // load photos
-    if(!this->home_texture.loadFromFile(resourcePath()+"Resources/Images/Information.png"))
+    if(!this->team_texture.loadFromFile(resourcePath()+"Resources/Images/picture.png"))
     {
         throw("ERROR::EXIT_FAILURE");
     }
-    if(!this->team_texture.loadFromFile(resourcePath()+"Resources/Images/StartBrown.png"))
+    if(!this->names_texture.loadFromFile(resourcePath()+"Resources/Images/namesOr.png"))
     {
         throw("ERROR::EXIT_FAILURE");
     }
-    if(!this->names_texture.loadFromFile(resourcePath()+"Resources/Images/scoreboard.png"))
+    if(!this->info_texture.loadFromFile(resourcePath()+"Resources/Images/infoOr.png"))
     {
         throw("ERROR::EXIT_FAILURE");
     }
-    if(!this->info_texture.loadFromFile(resourcePath()+"Resources/Images/skin.png"))
+    if(!this->idol_texture.loadFromFile(resourcePath()+"Resources/Images/yoyoLee.png"))
     {
         throw("ERROR::EXIT_FAILURE");
     }
-    if(!this->idol_texture.loadFromFile(resourcePath()+"Resources/Images/Music.png"))
+    if(!this->home_texture.loadFromFile(resourcePath()+"Resources/Images/home.png"))
     {
         throw("ERROR::EXIT_FAILURE");
     }
@@ -59,17 +59,16 @@ void InfoPage::initObjects()
     this->MousePosWindow = sf::Mouse::getPosition(*this -> window);
     
     // set texture
-    this->home.setTexture(this->home_texture);
-    this->home.setPosition(50, 40);
     this->team.setTexture(this->team_texture);
-    this->team.setPosition(350, 60);
+    this->team.setPosition(550, 60);
     this->names.setTexture(this->names_texture);
-    this->names.setPosition(100, 400);
+    this->names.setPosition(50, 460);
     this->info.setTexture(this->info_texture);
-    this->info.setPosition(100, 560);
+    this->info.setPosition(50, 580);
     this->idol.setTexture(this->idol_texture);
-    this->idol.setPosition(600, 1040);
-    
+    this->idol.setPosition(40, 60);
+    this->home.setTexture(this->home_texture);
+    this->home.setPosition(770, 1300);
 }
 
 
@@ -97,7 +96,7 @@ void InfoPage::pollEvents()
 void InfoPage::update()
 {
     this -> pollEvents();
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 0 && sf::Mouse::getPosition(*this -> window).x < 1000 && sf::Mouse::getPosition(*this -> window).y > 0 && sf::Mouse::getPosition(*this -> window).y < 1500)
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 770 && sf::Mouse::getPosition(*this -> window).x < 890 && sf::Mouse::getPosition(*this -> window).y > 1306 && sf::Mouse::getPosition(*this -> window).y < 1412)
     {
         current_state = 1;
     }
@@ -108,11 +107,11 @@ void InfoPage::render()
 {
     this->window->clear(background_color);
     // draw game objects
-    this->window->draw(home);
     this->window->draw(team);
     this->window->draw(names);
     this->window->draw(info);
     this->window->draw(idol);
+    this->window->draw(home);
     this->window->display();
 }
 
