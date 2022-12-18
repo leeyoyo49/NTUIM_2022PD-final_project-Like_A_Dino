@@ -448,7 +448,7 @@ void Game::gameover()
     out.open(resourcePath()+"Resources/score.txt", ios::out | ios::trunc);
     for(int i = 0; i < 5; i ++)
     {
-        out << this -> scorearr[i] << '\n';
+        out << this -> scorearr[i] << ' ';
     }
     
     // end animation

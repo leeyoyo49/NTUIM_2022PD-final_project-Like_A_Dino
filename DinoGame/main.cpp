@@ -4,11 +4,13 @@
 #include "Game.hpp"
 #include "InfoPage.hpp"
 
+
 using namespace std;
 
 int main(int, char const**)
 {
     // 全域變數
+    
     int current_state = 1;
     bool game_still_running = true;
     string skin_name = "Yoyo";
@@ -43,15 +45,16 @@ int main(int, char const**)
                 break;
             }
             case 5:{
-                /*InfoPage infopage(window,current_state);
+                InfoPage infopage(window,current_state);
                 infopage.runinfopage();
                 current_state = 1;
-                break;*/
+                break;
             }
             default:
                 break;
         }
     }
+    cout << "yee";
     delete window;
     return EXIT_SUCCESS;
 }

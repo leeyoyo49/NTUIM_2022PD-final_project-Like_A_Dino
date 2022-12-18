@@ -63,21 +63,25 @@ void MainPage::initObjects()
     this->song_name.setString(this->music_name);
     this->character_name.setString(this->skin_name);
     // set text
-    std::ifstream file;
-    file.open("score.txt");
-    if(file.is_open())
+    fstream in;
+    vector <string> scorearr;
+    in.open(resourcePath()+"Resources/score.txt");
+    string tempnum;
+    if(in)
     {
-        std::getline(file, one);
-        std::getline(file, two);
-        std::getline(file, three);
-        std::getline(file, four);
-        std::getline(file, five);
+        for(int i = 0; i < 5; i ++)
+        {
+            in >> tempnum;
+            scorearr.push_back(tempnum);
+            cout << tempnum << ' ';
+        }
     }
-    this->scoreone.setString("2000");
-    this->scoretwo.setString("1500");
-    this->scorethree.setString(three);
-    this->scorefour.setString(four);
-    this->scorefive.setString(five);
+    in.close();
+    this->scoreone.setString((scorearr[0]));
+    this->scoretwo.setString((scorearr[1]));
+    this->scorethree.setString((scorearr[2]));
+    this->scorefour.setString((scorearr[3]));
+    this->scorefive.setString((scorearr[4]));
     
     // set mouseposition
     this->MousePosWindow = sf::Mouse::getPosition(*this -> window);
