@@ -40,7 +40,7 @@ void Game::change_song(std::string song_name)
 {
     if(!this -> song_buffer.loadFromFile(resourcePath()+"Resources/Songs/"+song_name+".wav"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     this -> song.setBuffer(song_buffer);
     
@@ -50,17 +50,17 @@ void Game::change_skin(std::string skin_name)
 {
     if (!this -> dinohead_texture.loadFromFile(resourcePath()+"Resources/Images/"+skin_name+"Head.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     this -> dinohead.setTexture(this -> dinohead_texture);
     if (!this -> dinoneck_texture.loadFromFile(resourcePath()+"Resources/Images/"+skin_name+"Neck.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     this -> dinoneck.setTexture(this -> dinoneck_texture);
     if (!this -> dinobody_texture.loadFromFile(resourcePath()+"Resources/Images/"+skin_name+"Body.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     this -> dinoheadpos.x = 200;
     this -> dinoheadpos.y = 1100.5;
@@ -87,7 +87,7 @@ void Game::initObjects()
     this -> ss.precision(1);
     // load font
     if (!font.loadFromFile(resourcePath()+"Resources/Fonts/ComicGeckoPro.otf")) {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     
     // set background color
@@ -147,27 +147,27 @@ void Game::initObjects()
     
     if (!this -> dottedline_texture.loadFromFile(resourcePath()+"Resources/Images/dottedline.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     this -> dottedline.setTexture(this -> dottedline_texture);
     this -> dottedline.setPosition(200, 900);
     
     if(!this -> life_texture.loadFromFile(resourcePath()+"Resources/Images/heart.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     this -> life.setTexture(life_texture);
     this -> life.setPosition(777, 48);
     
     if(!this -> red_dino_neck_texture.loadFromFile(resourcePath()+"Resources/Images/dinoRedNeck.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     this -> red_dino_neck.setTexture(red_dino_neck_texture);
     
     if(!this -> gameoverscreen_texture.loadFromFile(resourcePath()+"Resources/Images/over.png"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     this -> gameoverscreen.setTexture(gameoverscreen_texture);
     this -> gameoverscreen.setPosition(164, 422);
@@ -175,7 +175,7 @@ void Game::initObjects()
     // set music
     if(!this -> song_buffer.loadFromFile(resourcePath()+"Resources/Songs/vivaldi_autumn.wav"))
     {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     song.setBuffer(song_buffer);
     
@@ -186,7 +186,7 @@ void Game::initObjects()
     this -> song_pos = 0;
     std::ifstream file_in(resourcePath()+"Resources/SongSheet/When-I-Was-A-Boy.txt");
     if(!file_in) {
-        return EXIT_FAILURE;
+        throw("ERROR::EXIT_FAILURE");
     }
     std::string line;
     std::getline(file_in, line);
@@ -448,7 +448,7 @@ void Game::gameover()
     out.open(resourcePath()+"Resources/score.txt", ios::out | ios::trunc);
     for(int i = 0; i < 5; i ++)
     {
-        out << this -> scorearr[i] << '\n';
+        out << this -> scorearr[i] << ' ';
     }
     
     // end animation
