@@ -72,7 +72,8 @@ void MainPage::initObjects()
         for(int i = 0; i < 5; i ++)
         {
             in >> tempnum;
-            cout << tempnum << ' ';
+//            cout << tempnum;
+//            cout << resourcePath();
             scorearr.push_back(tempnum);
         }
     }
@@ -87,14 +88,16 @@ void MainPage::initObjects()
     this->MousePosWindow = sf::Mouse::getPosition(*this -> window);
     
     // set texture
+    this->scoreboard.setTexture(this->scoreboard_texture);
+    this->scoreboard.setPosition(60, 400);
     this->like_a_dino.setPosition(200, 200);
     this->like_a_dino.setFont(font);
     this->like_a_dino.setFillColor(sf::Color::Black);
     this->like_a_dino.setCharacterSize(107);
-    this->song_name.setPosition(140, 580);
     this->song_name.setFont(font);
     this->song_name.setFillColor(sf::Color::Black);
     this->song_name.setCharacterSize(30);
+    this->song_name.setPosition(scoreboard.getPosition().x + scoreboard.getGlobalBounds().width / 2 - song_name.getGlobalBounds().width / 2, 570);
     this->scoreone.setPosition(180, 700);
     this->scoreone.setFont(font);
     this->scoreone.setFillColor(sf::Color::Black);
@@ -121,8 +124,6 @@ void MainPage::initObjects()
     this->character_name.setCharacterSize(60);
     this->info.setTexture(this->info_texture);
     this->info.setPosition(50, 40);
-    this->scoreboard.setTexture(this->scoreboard_texture);
-    this->scoreboard.setPosition(60, 400);
     this->dino.setTexture(this->dino_texture);
     this->dino.setPosition(540, 450);
     this->startbutton.setTexture(this->startbutton_texture);

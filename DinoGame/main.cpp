@@ -25,28 +25,33 @@ int main(int, char const**)
             case 1:{
                 MainPage mainpage(window, current_state, skin_name, music_name);
                 mainpage.runmainpage();
+                game_still_running = mainpage.running();
                 break;
             }
             case 2:{
                 Game game(window, current_state, skin_name, music_name);
                 game.gamerun();
+                game_still_running = game.running();
                 break;
             }
             case 3:{
                 SkinPage skinpage(window, current_state, skin_name);
                 skinpage.run_skinpage();
+                game_still_running = skinpage.running();
                 current_state = 1;
                 break;
             }
             case 4:{
                 MusicPage musicpage(window,current_state, music_name);
                 musicpage.run_musicpage();
+                game_still_running = musicpage.running();
                 current_state = 1;
                 break;
             }
             case 5:{
                 InfoPage infopage(window,current_state);
                 infopage.runinfopage();
+                game_still_running = infopage.running();
                 current_state = 1;
                 break;
             }
@@ -54,7 +59,6 @@ int main(int, char const**)
                 break;
         }
     }
-    cout << "yee";
     delete window;
     return EXIT_SUCCESS;
 }

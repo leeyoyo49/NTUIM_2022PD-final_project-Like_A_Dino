@@ -443,14 +443,15 @@ void Game::gameover()
 {
     // update score
     this -> scorearr.push_back(this -> scorenum);
+
     sort(scorearr.begin(), scorearr.end());
     ofstream out;
     out.open(resourcePath()+"Resources/score.txt", ios::out | ios::trunc);
     for(int i = 0; i < 5; i ++)
     {
-        out << this -> scorearr[4 - i] << ' ';
+        out << this -> scorearr[5 - i] << ' ';
     }
-    
+    scorearr.clear();
     // end animation
     song.pause();
     this -> Dinoneck_vector.clear();

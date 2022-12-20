@@ -68,7 +68,7 @@ void InfoPage::initObjects()
     this->idol.setTexture(this->idol_texture);
     this->idol.setPosition(40, 60);
     this->home.setTexture(this->home_texture);
-    this->home.setPosition(770, 1300);
+    this->home.setPosition(700, 1300);
 }
 
 
@@ -96,7 +96,7 @@ void InfoPage::pollEvents()
 void InfoPage::update()
 {
     this -> pollEvents();
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 770 && sf::Mouse::getPosition(*this -> window).x < 890 && sf::Mouse::getPosition(*this -> window).y > 1306 && sf::Mouse::getPosition(*this -> window).y < 1412)
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && sf::Mouse::getPosition(*this -> window).x > 700 && sf::Mouse::getPosition(*this -> window).x < 820 && sf::Mouse::getPosition(*this -> window).y > 1306 && sf::Mouse::getPosition(*this -> window).y < 1412)
     {
         current_state = 1;
     }

@@ -79,7 +79,7 @@ void MusicPage::initObjects()
     this->musicname.setPosition(cover[0].getPosition().x + cover[0].getGlobalBounds().width / 2
                                 - musicname.getGlobalBounds().width / 2, 1200);
     // set music
-    if (!this->music.openFromFile(resourcePath()+"Resources/Songs/" + curr_music + ".wav"))
+    if (!this->music.openFromFile(resourcePath()+"Resources/Songs/" + "When-I-Was-A-Boy" + ".wav"))
         throw("ERROR::EXIT_FAILURE");
     music.play();
 }
