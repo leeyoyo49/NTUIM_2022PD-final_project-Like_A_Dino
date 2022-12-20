@@ -448,7 +448,7 @@ void Game::gameover()
     out.open(resourcePath()+"Resources/score.txt", ios::out | ios::trunc);
     for(int i = 0; i < 5; i ++)
     {
-        out << this -> scorearr[i] << ' ';
+        out << this -> scorearr[4 - i] << ' ';
     }
     
     // end animation
@@ -478,7 +478,8 @@ void Game::gameover()
         this -> window -> clear(background_color);
         this -> window -> draw(gameoverscreen);
         this -> score.setString(to_string(scorenum));
-        this -> score.setPosition(350, 844);
+        this -> score.setPosition(gameoverscreen.getPosition().x + gameoverscreen.getGlobalBounds().width / 2
+                                  - score.getGlobalBounds().width / 2, 844);
         this -> score.setCharacterSize(120);
         this -> window -> draw(score);
         this -> window -> display();
@@ -486,7 +487,7 @@ void Game::gameover()
 }
 
 
-int Game::gamerun()
+void Game::gamerun()
 {
     this -> gameStartpage();
     // play song & set song start time

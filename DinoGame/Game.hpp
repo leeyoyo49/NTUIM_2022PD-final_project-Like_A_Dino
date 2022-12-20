@@ -116,6 +116,6 @@ public:
     void render();
     void gameStartpage();
     void minus_life_animation();
-    int gamerun();
+    void gamerun();
     void gameover();
 };
