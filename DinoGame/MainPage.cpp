@@ -72,16 +72,16 @@ void MainPage::initObjects()
         for(int i = 0; i < 5; i ++)
         {
             in >> tempnum;
+            cout << tempnum << ' ';
             scorearr.push_back(tempnum);
-            //cout << tempnum << ' ';
         }
     }
     in.close();
-    this->scoreone.setString((scorearr[4]));
-    this->scoretwo.setString((scorearr[3]));
+    this->scoreone.setString((scorearr[0]));
+    this->scoretwo.setString((scorearr[1]));
     this->scorethree.setString((scorearr[2]));
-    this->scorefour.setString((scorearr[1]));
-    this->scorefive.setString((scorearr[0]));
+    this->scorefour.setString((scorearr[3]));
+    this->scorefive.setString((scorearr[4]));
     
     // set mouseposition
     this->MousePosWindow = sf::Mouse::getPosition(*this -> window);
